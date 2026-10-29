@@ -1,15 +1,13 @@
-# Política de privacidade — PapaAnúncio
+# PapaAnúncio
 
-Este repositório público contém apenas a política de privacidade da extensão PapaAnúncio (projeto AD-BLOCK).
+Extensão gratuita para reduzir anúncios e rastreadores no Microsoft Edge, com controles locais por site e pausa global. Sem conta da extensão ou telemetria para o desenvolvedor. A eficácia varia por site; não é um antivírus nem uma garantia de segurança ou bloqueio completo.
 
-Leia [a política de privacidade](PRIVACY.md).
+[Instalar pela página oficial do Microsoft Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/papaan%C3%BAncio/dkhdokbphfkndloeabmdpniaedpmnahl)
 
-Para servir index.html como página, habilite GitHub Pages em Settings → Pages → Deploy from a branch → main → / (root).
+- [Política de privacidade em português](PRIVACY.md)
+- [Privacy policy in English](PRIVACY.en.md)
+- [Suporte e dúvidas](https://github.com/xdbixcoito-hub/ad-block-privacy/issues)
 
-Endereço previsto após a ativação: https://xdbixcoito-hub.github.io/ad-block-privacy/
+As políticas descrevem a 0.8.7 preparada para submissão. A versão aprovada disponível é a indicada na loja; atualizar esta documentação não publica uma extensão. Versões antigas podem ter comportamento diferente, como descrito na política.
 
-English translation: [Privacy policy](PRIVACY.en.md).
-
-## Atualização 0.7.3
-
-As políticas PT/EN descrevem o padrão sem captura/repasse de Authorization e Client-Integrity da 0.7.3, enviada para análise. Também explicam o comportamento anterior da 0.7.1. A flag allowSessionHeaders vem desligada e existe apenas no código-fonte para desenvolvimento; o módulo ainda faz pedidos à própria Twitch. A atualização desta política não comprova aprovação da versão pela loja.
+Issues são públicas. Não publique tokens, senhas, URLs privadas, dados de conta ou informações pessoais. Este repositório público contém informações e política; não precisa de GitHub Pages para os links acima funcionarem.
