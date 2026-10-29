@@ -6,7 +6,7 @@ Atualizada em 29 de outubro de 2026.
 
 Esta política descreve a versão 0.8.7 preparada para submissão; isso não confirma publicação na loja. Na versão 0.7.1 anteriormente publicada, a falha do token anônimo podia acionar uma tentativa com cabeçalhos completos da sessão (incluindo Authorization e Client-Integrity quando disponíveis), mantidos em memória e enviados somente à própria Twitch. Essa tentativa fica desligada por padrão na 0.7.3. Confira a versão instalada em edge://extensions ou chrome://extensions.
 
-PapaAnúncio é a extensão do projeto AD-BLOCK mantido em https://github.com/xdbixcoito-hub/AD-BLOCK. Sua finalidade é bloquear anúncios e rastreadores e permitir que o usuário pause a proteção por site. Não exige conta própria e não contém telemetria, ferramentas de análise, publicidade própria ou servidor do desenvolvedor.
+Informações públicas do PapaAnúncio estão em https://github.com/xdbixcoito-hub/ad-block-privacy. Sua finalidade é bloquear anúncios e rastreadores e permitir que o usuário pause a proteção por site. Não exige conta própria e não contém telemetria, ferramentas de análise, publicidade própria ou servidor do desenvolvedor.
 
 ## Dados usados no navegador
 

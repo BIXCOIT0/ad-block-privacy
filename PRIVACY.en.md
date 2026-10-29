@@ -6,7 +6,7 @@ Updated October 29, 2026.
 
 This policy describes version 0.8.7 prepared for submission; this does not confirm store publication. In the previously published version 0.7.1, a failed anonymous token could trigger an attempt using complete session headers (including Authorization and Client-Integrity when available), held in memory and sent only to Twitch itself. This attempt is disabled by default in 0.7.3. Check the installed version at edge://extensions or chrome://extensions.
 
-PapaAnúncio is the browser extension from the AD-BLOCK project maintained at https://github.com/xdbixcoito-hub/AD-BLOCK. Its purpose is to block ads and trackers and let users pause protection on individual websites. It requires no extension account and contains no telemetry, analytics tools, advertising of its own or developer-operated backend.
+Public information about PapaAnúncio is available at https://github.com/xdbixcoito-hub/ad-block-privacy. Its purpose is to block ads and trackers and let users pause protection on individual websites. It requires no extension account and contains no telemetry, analytics tools, advertising of its own or developer-operated backend.
 
 ## Data used in the browser
 
