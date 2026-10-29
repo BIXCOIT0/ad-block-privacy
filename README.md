@@ -7,3 +7,5 @@ Leia [a política de privacidade](PRIVACY.md).
 Para servir index.html como página, habilite GitHub Pages em Settings → Pages → Deploy from a branch → main → / (root).
 
 Endereço previsto após a ativação: https://xdbixcoito-hub.github.io/ad-block-privacy/
+
+English translation: [Privacy policy](PRIVACY.en.md).

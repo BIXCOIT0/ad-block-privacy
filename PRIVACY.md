@@ -1,5 +1,7 @@
 # Política de privacidade — PapaAnúncio
 
+Português | [English](PRIVACY.en.md)
+
 Atualizada em 29 de outubro de 2026.
 
 PapaAnúncio é a extensão do projeto AD-BLOCK mantido em https://github.com/xdbixcoito-hub/AD-BLOCK. Sua finalidade é bloquear anúncios e rastreadores e permitir que o usuário pause a proteção por site. Não exige conta própria e não contém telemetria, ferramentas de análise, publicidade própria ou servidor do desenvolvedor.
