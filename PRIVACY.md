@@ -1,12 +1,12 @@
-# Política de privacidade — Bloqueio Pessoal
+# Política de privacidade — PapaAnúncio
 
 Atualizada em 29 de outubro de 2026.
 
-Bloqueio Pessoal é a extensão do projeto AD-BLOCK mantido em https://github.com/xdbixcoito-hub/AD-BLOCK. Sua finalidade é bloquear anúncios e rastreadores e permitir que o usuário pause a proteção por site. Não exige conta própria e não contém telemetria, ferramentas de análise, publicidade própria ou servidor do desenvolvedor.
+PapaAnúncio é a extensão do projeto AD-BLOCK mantido em https://github.com/xdbixcoito-hub/AD-BLOCK. Sua finalidade é bloquear anúncios e rastreadores e permitir que o usuário pause a proteção por site. Não exige conta própria e não contém telemetria, ferramentas de análise, publicidade própria ou servidor do desenvolvedor.
 
 ## Dados usados no navegador
 
-A extensão acessa o domínio e a URL da página/frame atual para decidir quais regras e seletores aplicar. O popup consulta a aba ativa e o contador de bloqueios fornecido pelo navegador. Não mantém um histórico das páginas visitadas.
+A extensão acessa o domínio e a URL da página/frame atual para decidir quais regras e seletores aplicar. O popup consulta a aba ativa e o total de ações de regras fornecido pelo navegador. Não mantém um histórico das páginas visitadas.
 
 As preferências de sites pausados (disabledSites) e os totais/estado de ativação das regras (ruleStatus e ruleStatusErrors) são guardados em chrome.storage.local, no perfil do navegador. Erros de ativação de regras podem incluir a mensagem da API do navegador. Esses dados não são sincronizados por esta extensão nem enviados ao desenvolvedor.
 

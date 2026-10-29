@@ -1,4 +1,4 @@
-# Política de privacidade — Bloqueio Pessoal
+# Política de privacidade — PapaAnúncio
 
 Este repositório público contém apenas a política de privacidade da extensão AD-BLOCK.
 
