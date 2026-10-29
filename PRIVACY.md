@@ -4,6 +4,8 @@ Português | [English](PRIVACY.en.md)
 
 Atualizada em 29 de outubro de 2026.
 
+Esta política descreve a versão 0.7.3, enviada para análise. Na versão 0.7.1 anteriormente publicada, a falha do token anônimo podia acionar uma tentativa com cabeçalhos completos da sessão (incluindo Authorization e Client-Integrity quando disponíveis), mantidos em memória e enviados somente à própria Twitch. Essa tentativa fica desligada por padrão na 0.7.3. Confira a versão instalada em edge://extensions ou chrome://extensions.
+
 PapaAnúncio é a extensão do projeto AD-BLOCK mantido em https://github.com/xdbixcoito-hub/AD-BLOCK. Sua finalidade é bloquear anúncios e rastreadores e permitir que o usuário pause a proteção por site. Não exige conta própria e não contém telemetria, ferramentas de análise, publicidade própria ou servidor do desenvolvedor.
 
 ## Dados usados no navegador
@@ -18,9 +20,11 @@ Nos sites compatíveis, scripts locais leem e adaptam elementos da página e res
 
 O módulo pode fazer pedidos adicionais diretamente à Twitch para obter tokens e playlists de reprodução sem anúncios. No modo anônimo padrão, os pedidos de token omitem cookies, Authorization e Client-Integrity; podem reutilizar Client-ID e identificadores de sessão/dispositivo da própria Twitch. Isso não torna a conexão anônima para a Twitch: ela ainda recebe o IP e os dados necessários ao pedido.
 
-Se o token anônimo falhar, existe uma tentativa com os cabeçalhos completos da sessão que a própria página disponibilizou, incluindo autorização/integridade quando presentes. A extensão mantém esses valores e tokens apenas em memória para essa finalidade; não os grava em storage ou arquivos, não os envia ao desenvolvedor e não usa proxies de terceiros. Playlists e segmentos são solicitados à Twitch e aos endereços de mídia que ela retorna. A política de privacidade da Twitch continua aplicável a essas conexões.
+Na configuração distribuída (allowSessionHeaders: false), o wrapper de fetch captura somente client-id, client-session-id, client-version e x-device-id quando disponíveis. Authorization e Client-Integrity não são lidos pela captura, não entram no cache da extensão, não são encaminhados pelo BroadcastChannel nem armazenados pelo worker. Os pedidos auxiliares de token usam credentials: omit. Se o token anônimo falhar, o módulo não tenta o modo completo; sem backup seguro, preserva a playlist original. Isso não altera os pedidos autenticados que a própria página Twitch normalmente faz.
 
-O debug da Twitch fica desligado por padrão. Quando ativado manualmente pelo usuário, registra no console local diagnósticos como nome do canal, tipo de player, contagens de segmentos e duração dos pedidos. O código oculta tokens e valores de cabeçalhos no diagnóstico. Os logs não são enviados automaticamente.
+A flag allowSessionHeaders existe somente no código-fonte para desenvolvimento, vem desligada e não tem interface ou leitura de chrome.storage. Alterá-la manualmente para true e recarregar permite novamente capturar esses cabeçalhos e tentar o modo completo com credentials: same-origin (ou diretamente completo se backupAnonymous estiver false). Nesse modo de desenvolvimento, valores e tokens permanecem em memória e podem ser enviados nos pedidos auxiliares à própria Twitch, não ao desenvolvedor. Playlists e segmentos continuam sendo solicitados à Twitch e aos endereços de mídia que ela retorna. A política de privacidade da Twitch se aplica a essas conexões; não há proxy de terceiros.
+
+O debug da Twitch fica desligado por padrão. Quando ativado manualmente pelo usuário, registra no console local diagnósticos como nome do canal, tipo de player, contagens de segmentos e duração dos pedidos. No padrão sem sessão, o diagnóstico GQL registra apenas status, sem corpo da resposta ou mensagens de errors. No modo de desenvolvimento com sessão, o código mantém a ocultação de tokens e valores conhecidos de cabeçalhos no diagnóstico. Os logs não são enviados automaticamente.
 
 ## Compartilhamento e controle
 
