@@ -1,33 +1,175 @@
-<!doctype html><html lang="pt-BR"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Privacidade — PapaAnúncio</title><style>body{max-width:850px;margin:40px auto;padding:24px;font:17px/1.7 system-ui;color:#192534}p{overflow-wrap:anywhere}</style><main><h1>Política de privacidade — PapaAnúncio</h1>
-<p>Português | <a href="PRIVACY.en.md">English</a></p>
-<p>Atualizada em 29 de outubro de 2026.</p>
-<p>Esta política descreve a versão 0.8.7 preparada para submissão; isso não confirma publicação na loja. Na versão 0.7.1 anteriormente publicada, a falha do token anônimo podia acionar uma tentativa com cabeçalhos completos da sessão (incluindo Authorization e Client-Integrity quando disponíveis), mantidos em memória e enviados somente à própria Twitch. Essa tentativa fica desligada por padrão na 0.7.3. Confira a versão instalada em edge://extensions ou chrome://extensions.</p>
-<p>Informações públicas do PapaAnúncio estão em https://github.com/xdbixcoito-hub/ad-block-privacy. Sua finalidade é bloquear anúncios e rastreadores e permitir que o usuário pause a proteção por site. Não exige conta própria e não contém telemetria, ferramentas de análise, publicidade própria ou servidor do desenvolvedor.</p>
-<h2>Dados usados no navegador</h2>
-<p>A extensão acessa o domínio e a URL da página/frame atual para decidir quais regras e seletores aplicar. O popup consulta a aba ativa e o total de ações de regras fornecido pelo navegador. Não mantém um histórico das páginas visitadas.</p>
-<p>As preferências de sites pausados (disabledSites) e os totais/estado de ativação das regras (ruleStatus e ruleStatusErrors) são guardados em chrome.storage.local, no perfil do navegador. Erros de ativação de regras podem incluir a mensagem da API do navegador. Esses dados não são sincronizados por esta extensão nem enviados ao desenvolvedor.</p>
-<p>Nos sites compatíveis, scripts locais leem e adaptam elementos da página e respostas do player para tentar remover publicidade. A lógica da extensão e as listas usadas na navegação estão incluídas no pacote instalado. O download das listas ocorre apenas no build do projeto pelo desenvolvedor.</p>
-<h2>Diagnóstico opcional — a partir da 0.7.4</h2>
-<p>O popup oferece uma prévia local de diagnóstico que só é preparada ao expandir o painel. Ela contém versão, disponibilidade de APIs e contagens de regras, usando campos explícitos. Não inclui sites, histórico, URLs, mensagens de erro, cabeçalhos, tokens ou dados da sessão. Nada é enviado automaticamente. Ao clicar em Copiar diagnóstico, o texto substitui o conteúdo da área de transferência; você escolhe se e onde compartilhar. Se a cópia automática não estiver disponível, pode copiar o texto selecionado manualmente. O diagnóstico não é salvo no storage da extensão.</p>
-<h2>Página de inicialização</h2>
-<p>A página de boas-vindas consulta uma vez ruleStatus/globalPaused e, se a API existir, o estado de fixação do ícone. A sequência digitada apresenta configuração local; não faz varredura de segurança nem ativa regras. Imagem, fontes do sistema e efeitos são locais.</p>
-<h2>Módulo experimental da Twitch</h2>
-<p>O módulo pode fazer pedidos adicionais diretamente à Twitch para obter tokens e playlists de reprodução sem anúncios. No modo anônimo padrão, os pedidos de token omitem cookies, Authorization e Client-Integrity; podem reutilizar Client-ID e identificadores de sessão/dispositivo da própria Twitch. Isso não torna a conexão anônima para a Twitch: ela ainda recebe o IP e os dados necessários ao pedido.</p>
-<p>Na configuração distribuída (allowSessionHeaders: false), o wrapper de fetch captura somente client-id, client-session-id, client-version e x-device-id quando disponíveis. Authorization e Client-Integrity não são lidos pela captura, não entram no cache da extensão, não são encaminhados pelo BroadcastChannel nem armazenados pelo worker. Os pedidos auxiliares de token usam credentials: omit. Se o token anônimo falhar, o módulo não tenta o modo completo; sem backup seguro, preserva a playlist original. Isso não altera os pedidos autenticados que a própria página Twitch normalmente faz.</p>
-<p>A flag allowSessionHeaders existe somente no código-fonte para desenvolvimento, vem desligada e não tem interface ou leitura de chrome.storage. Alterá-la manualmente para true e recarregar permite novamente capturar esses cabeçalhos e tentar o modo completo com credentials: same-origin (ou diretamente completo se backupAnonymous estiver false). Nesse modo de desenvolvimento, valores e tokens permanecem em memória e podem ser enviados nos pedidos auxiliares à própria Twitch, não ao desenvolvedor. Playlists e segmentos continuam sendo solicitados à Twitch e aos endereços de mídia que ela retorna. A política de privacidade da Twitch se aplica a essas conexões; não há proxy de terceiros.</p>
-<p>O debug da Twitch fica desligado por padrão. Quando ativado manualmente pelo usuário, registra no console local diagnósticos como nome do canal, tipo de player, contagens de segmentos e duração dos pedidos. No padrão sem sessão, o diagnóstico GQL registra apenas status, sem corpo da resposta ou mensagens de errors. No modo de desenvolvimento com sessão, o código mantém a ocultação de tokens e valores conhecidos de cabeçalhos no diagnóstico. Os logs não são enviados automaticamente.</p>
-<h2>Pausa global, contadores e atividades — 0.8.0</h2>
-<p>A pausa geral grava globalPaused (estado) e pausedUntil (horário de retomada ou null) em chrome.storage.local. A permissão alarms agenda a retomada mesmo com o popup fechado; o navegador pode atrasar o alarme enquanto está suspenso. Ao iniciar, a extensão confere pausas vencidas. A lista disabledSites é independente da pausa geral.</p>
-<p>counters guarda total, today e day (data local). São ações de regras observadas nas consultas ao abrir o popup; não são um total completo de anúncios ou requisições únicas. Reaberturas são deduplicadas por marcadores transitórios de aba/regra/horário em storage.session (matchWatermarks, até 1.000 abas). Eventos não consultados, limites da API, empates de timestamp e reinícios podem afetar a contagem. O valor de hoje reinicia pela data local; o acumulado permanece no perfil.</p>
-<p>storage.session também guarda activity: somente as três últimas ações confirmadas de pausa/retomada, com código da ação e horário, sem domínio ou URL. Os dados de sessão são descartados pelo navegador ao encerrar a sessão; não há envio ao desenvolvedor. O diagnóstico voluntário continua exportando apenas seus campos explicitamente permitidos.</p>
-<p>A pausa altera as regras de rede imediatamente e remove registros para próximas navegações. Scripts/CSS já presentes em outras abas precisam de novo carregamento; a ação do popup recarrega somente a aba atual. A retomada por alarme tenta recarregar apenas a aba ativa HTTP/HTTPS.</p>
-<h2>Atualização visual e notificações locais — 0.8.6</h2>
-<p>O título “Ameaças neutralizadas” é um nome visual para ações de regras observadas, não uma avaliação de segurança. Não há varredura de malware ou confirmação de ameaças. Na instalação sem compactação, quando o navegador disponibiliza onRuleMatchedDebug, o worker confere regras block locais e envia à própria interface somente tabId e contagem. O código não lê a URL ou cabeçalhos desse evento. tabLiveCounts e liveRequestKeys são transitórios em storage.session, limitados às últimas 128 abas e até 256 chaves de requisição/regra por aba; são limpos ao fechar a aba ou ao encerrar a sessão. Esses IDs são gerados pelo navegador, não são credenciais da Twitch.</p>
-<p>Em instalações da loja o evento imediato não é disponibilizado; o popup consulta getMatchedRules ao abrir e a cada 35 segundos enquanto está visível, respeitando recuo em erros/cotas. Essas consultas também atualizam Hoje/Total. Não há consulta periódica com o popup fechado nem envio para servidores do desenvolvedor. O bloqueio de rede funciona mesmo sem o contador aberto.</p>
-<h2>Compartilhamento e controle</h2>
-<p>Não vendemos dados nem os compartilhamos com anunciantes ou serviços de análise. Os pedidos à Twitch descritos acima servem exclusivamente à reprodução do vídeo. O acesso ao GitHub por links de ajuda/privacidade só acontece quando você abre esses links; a política desse site se aplica à visita.</p>
-<p>Você pode pausar a proteção pelo popup. A aba atual recarrega para aplicar a mudança; recarregue também outras abas abertas desse site para remover scripts que já estejam em execução. Desinstalar a extensão remove seu armazenamento local do perfil. Se você ativou o debug manualmente, remova a chave com localStorage.removeItem(&#x27;bloqueioPessoal_twitchDebug&#x27;) no console da Twitch; essa chave fica no armazenamento do site, fora do armazenamento da extensão.</p>
-<p>As atualizações instaladas pela loja são distribuídas pelo Microsoft Edge Add-ons e estão sujeitas às políticas da Microsoft. A extensão não possui um atualizador remoto próprio.</p>
-<h2>Contato</h2>
-<p>Dúvidas ou pedidos relacionados à privacidade: https://github.com/xdbixcoito-hub/ad-block-privacy/issues. As issues são públicas; não publique tokens, senhas, URLs privadas ou dados pessoais.
-</p></main></html>
+<!doctype html><html lang="pt-BR"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>PapaAnúncio — Privacidade 0.9.3</title><style>body{max-width:900px;margin:32px auto;padding:0 16px;font:16px/1.6 system-ui}pre{white-space:pre-wrap;overflow-wrap:anywhere;font:inherit}</style><main><h1>Privacidade — Privacy 0.9.3</h1><p>Este texto não confirma submissão ou publicação na loja.</p><nav><a href="#pt">Português</a> · <a href="#en">English</a> · <a href="PRIVACY.md">Markdown PT</a> · <a href="PRIVACY.en.md">Markdown EN</a></nav><section id="pt" lang="pt-BR"><pre># Política de privacidade — PapaAnúncio
+
+Português | [English](PRIVACY.en.md)
+
+Atualizada em 30 de outubro de 2026.
+
+Esta política descreve a versão 0.9.3 preparada para envio à loja; isso não confirma submissão ou publicação na loja. A captura de cabeçalhos e a reescrita de tokens da Twitch ficam desligadas por padrão. Confira a versão instalada em edge://extensions ou chrome://extensions.
+
+Informações públicas do PapaAnúncio estão em https://github.com/xdbixcoito-hub/ad-block-privacy. Sua finalidade é bloquear anúncios e rastreadores e permitir que o usuário pause a proteção por site. Não exige conta própria e não contém telemetria, ferramentas de análise, publicidade própria ou servidor do desenvolvedor.
+
+PapaAnúncio também usa os nomes locais AdChomper, ZampaAnuncios, 广告吞吞 e ऐडखाऊ. O idioma da interface segue o navegador via chrome.i18n, sem serviço de tradução, envio de textos ou nova preferência salva. O diagnóstico mostra o nome localizado. Esta política continua disponível em português e inglês.
+
+## Dados usados no navegador
+
+A extensão acessa o domínio e a URL da página/frame atual para decidir quais regras e seletores aplicar. O popup consulta a aba ativa e o total de ações de regras fornecido pelo navegador. Não mantém um histórico das páginas visitadas.
+
+As preferências de sites pausados (disabledSites) e os totais/estado de ativação das regras (ruleStatus e ruleStatusErrors) são guardados em chrome.storage.local, no perfil do navegador. Erros de ativação de regras podem incluir a mensagem da API do navegador. Esses dados não são sincronizados por esta extensão nem enviados ao desenvolvedor.
+
+Nos sites compatíveis, scripts locais leem e adaptam elementos da página e respostas do player para tentar remover publicidade. A lógica da extensão e as listas usadas na navegação estão incluídas no pacote instalado. O download das listas ocorre apenas no build do projeto pelo desenvolvedor.
+
+## CSS cosmético e mensagens locais
+
+O script cosmético coleta tokens de IDs, classes, nomes de tags e nomes de atributos presentes no DOM. Envia esses tokens apenas por chrome.runtime.sendMessage ao service worker local da própria extensão, que seleciona os filtros empacotados e aplica as exceções do domínio. Essas mensagens não fazem pedidos de rede. Os tokens recebidos não são registrados em logs nem gravados em storage; há conjuntos transitórios de tokens já processados no script da página para evitar trabalho repetido, descartados ao destruir o contexto. O worker também consulta a URL/frame para validar o documento e inserir o CSS específico; isso não cria histórico de navegação.
+
+O debug cosmético, solicitado manualmente no console da extensão, mostra por frame a origem da página, o arquivo específico e os seletores carregados, mantidos transitoriamente no contexto da aba. Isso não confirma que um seletor encontrou um elemento. Não há envio automático ou registro persistente desses resultados; o usuário pode ver/copiar o resultado localmente. Esse debug é separado da prévia de diagnóstico do popup descrita abaixo.
+
+## Diagnóstico opcional
+
+O popup oferece uma prévia local de diagnóstico que só é preparada ao expandir o painel. Ela contém versão, disponibilidade de APIs e contagens de regras, usando campos explícitos. Não inclui sites, histórico, URLs, mensagens de erro, cabeçalhos, tokens ou dados da sessão. Nada é enviado automaticamente. Ao clicar em Copiar diagnóstico, o texto substitui o conteúdo da área de transferência; você escolhe se e onde compartilhar. Se a cópia automática não estiver disponível, pode copiar o texto selecionado manualmente. O diagnóstico não é salvo no storage da extensão.
+
+## Página de inicialização
+
+A página de boas-vindas consulta uma vez ruleStatus/globalPaused e, se a API existir, o estado de fixação do ícone. A sequência digitada apresenta configuração local; não faz varredura de segurança nem ativa regras. Imagem, fontes do sistema e efeitos são locais.
+
+## Módulo experimental da Twitch
+
+O módulo pode fazer pedidos adicionais diretamente à Twitch para obter tokens e playlists de reprodução sem anúncios. No modo anônimo padrão, os pedidos auxiliares de token usam credentials: omit e não enviam cookies, Authorization ou Client-Integrity. Podem reutilizar o Client-ID público observado da aplicação; a captura de identificadores de sessão/dispositivo está desligada por padrão. Isso não torna a conexão anônima para a Twitch: ela ainda recebe o IP e os dados necessários ao pedido.
+
+Se a captura for habilitada manualmente, com allowSessionHeaders: false o wrapper de fetch captura somente client-id, client-session-id, client-version e x-device-id quando disponíveis. Authorization e Client-Integrity não são lidos pela captura, não entram no cache da extensão, não são encaminhados pelo BroadcastChannel nem armazenados pelo worker. Os pedidos auxiliares de token usam credentials: omit. Se o token anônimo falhar, o módulo não tenta o modo completo; sem backup seguro, preserva a playlist original. Isso se refere aos pedidos auxiliares, separados dos pedidos normais da página descritos abaixo.
+
+Na 0.9.3, headerCapture, adMute e tokenRewrite vêm desligados; workerFilter, backup, playlistFilter e adMetrics vêm ligados. O módulo lê transitoriamente playlists HLS recebidas via fetch e XHR na página/Worker para retirar segmentos e metadados classificados como anúncio, preservando o original quando a mídia restante não é segura. Pode pedir um backup de até 480p diretamente à Twitch durante anúncios e volta à variante original depois. URLs de mídia e tokens de backup necessários ficam apenas em memória; não são gravados no storage nem enviados ao desenvolvedor. Os pedidos normais da página preservam seus headers e credentials: Authorization/Client-Integrity não são extraídos pelo filtro, mas podem continuar sendo enviados pelo navegador à própria Twitch conforme o pedido da página. A antiga reescrita de token permanece no fonte como opção manual desligada.
+
+A observação GQL (observePlayback=true) lê somente o Client-ID público da aplicação e a assinatura da resposta live nativa para associar o canal ao master Usher. A chamada e sua resposta originais são preservadas. Esses campos ficam em um Map privado de até 32 entradas por contexto, com validade de 60 s; vencidos são descartados no próximo acesso/observação ou ao fechar o contexto. Não ficam em globais, sessionStorage, chrome.storage, logs ou BroadcastChannel. O valor do token nativo não é guardado. Quando a assinatura corresponde à URL Usher do mesmo canal, o Client-ID pode ser reutilizado em pedidos auxiliares anônimos à própria Twitch. Não se lê Authorization/Client-Integrity nessa observação; headerCapture continua desligado. Não há compartilhamento desse contexto entre frames/workers. Se a observação faltar, falhar ou expirar, usa-se o Client-ID público configurado. Isso não torna os pedidos anônimos perante a Twitch.
+
+Operações GQL isoladas chamadas VideoAdTrack/AdReport podem receber resposta JSON vazia local, sem enviar esses pedidos à Twitch. Lotes mistos, formatos não suportados e outras métricas podem continuar sendo enviados. Isso não garante impedir detecção ou todos os rastreadores. Não se registra o corpo dessas métricas. A filtragem e os eventos XHR sintéticos podem ser detectados pelo site. Não há proxy público; a eficácia, qualidade e reprodução não são garantidas.
+
+A flag allowSessionHeaders existe somente no código-fonte para desenvolvimento, vem desligada e não tem interface ou leitura de chrome.storage. Alterá-la manualmente para true, habilitar também headerCapture para capturar cabeçalhos e recarregar permite capturar esses cabeçalhos e tentar o modo completo com credentials: same-origin (ou diretamente completo se backupAnonymous estiver false). Nesse modo de desenvolvimento, valores e tokens permanecem em memória e podem ser enviados nos pedidos auxiliares à própria Twitch, não ao desenvolvedor. Playlists e segmentos continuam sendo solicitados à Twitch e aos endereços de mídia que ela retorna. A política de privacidade da Twitch se aplica a essas conexões; não há proxy de terceiros.
+
+O debug da Twitch fica desligado por padrão. Quando ativado manualmente pelo usuário, registra no console local diagnósticos como nome do canal, tipo de player, contagens de segmentos e duração dos pedidos. No padrão sem sessão, o diagnóstico GQL registra apenas status, sem corpo da resposta ou mensagens de errors. No modo de desenvolvimento com sessão, o código mantém a ocultação de tokens e valores conhecidos de cabeçalhos no diagnóstico. Os logs não são enviados automaticamente.
+
+## Pausa global, contadores e atividades
+
+A pausa geral grava globalPaused (estado) e pausedUntil (horário de retomada ou null) em chrome.storage.local. A permissão alarms agenda a retomada mesmo com o popup fechado; o navegador pode atrasar o alarme enquanto está suspenso. Ao iniciar, a extensão confere pausas vencidas. A lista disabledSites é independente da pausa geral.
+
+counters guarda total, today e day (data local). São ações de regras observadas nas consultas ao abrir o popup; não são um total completo de anúncios ou requisições únicas. Reaberturas são deduplicadas por marcadores transitórios de aba/regra/horário em storage.session (matchWatermarks, até 1.000 abas). Eventos não consultados, limites da API, empates de timestamp e reinícios podem afetar a contagem. O valor de hoje reinicia pela data local; o acumulado permanece no perfil.
+
+storage.session também guarda activity: somente as três últimas ações confirmadas de pausa/retomada, com código da ação e horário, sem domínio ou URL. Os dados de sessão são descartados pelo navegador ao encerrar a sessão; não há envio ao desenvolvedor. O diagnóstico voluntário continua exportando apenas seus campos explicitamente permitidos.
+
+A pausa altera as regras de rede imediatamente e remove registros para próximas navegações. Scripts/CSS já presentes em outras abas precisam de novo carregamento; a ação do popup recarrega somente a aba atual. A retomada por alarme tenta recarregar apenas a aba ativa HTTP/HTTPS.
+
+## Atualização visual e notificações locais
+
+O título “Ameaças neutralizadas” é um nome visual para ações de regras observadas, não uma avaliação de segurança. Não há varredura de malware ou confirmação de ameaças. Na instalação sem compactação, quando o navegador disponibiliza onRuleMatchedDebug, o worker confere regras block locais e envia à própria interface somente tabId e contagem. O código não lê a URL ou cabeçalhos desse evento. tabLiveCounts e liveRequestKeys são transitórios em storage.session, limitados às últimas 128 abas e até 256 chaves de requisição/regra por aba; são limpos ao fechar a aba ou ao encerrar a sessão. Esses IDs são gerados pelo navegador, não são credenciais da Twitch.
+
+Em instalações da loja o evento imediato não é disponibilizado; o popup consulta getMatchedRules ao abrir e a cada 35 segundos enquanto está visível, respeitando recuo em erros/cotas. Essas consultas também atualizam Hoje/Total. Não há consulta periódica com o popup fechado nem envio para servidores do desenvolvedor. O bloqueio de rede funciona mesmo sem o contador aberto.
+
+## Recursos anti-adblock locais — 0.9.3
+
+A versão inclui stubs próprios e mínimos de APIs publicitárias/analytics e respostas vazias empacotadas. Quando habilitados para um domínio validado, regras de redirecionamento do navegador substituem os scripts/pedidos GET de teste configurados por arquivos locais, sem enviar esses pedidos aos servidores de anúncios. O perfil GPT/IMA foi ativado para www.xfilme.net e subsbr.net após confirmação do responsável, incluindo cinco sites de controle sem problemas. Em www.baixetorrentshd.org, um perfil substitui o script/sondas adsbygoogle configurados e mantém somente iscas específicas fora da tela, com dimensões mínimas e opacidade 1; anúncios reais fora desses seletores não são reexibidos. O responsável confirmou a resolução do aviso e a navegação. Os redirects são restritos aos recursos e domínios configurados; isso não representa cobertura geral de sites. Pedidos não correspondentes continuam sujeitos às outras regras e ao comportamento normal do navegador.
+
+Os arquivos de stub declarados em web_accessible_resources usam use_dynamic_url: true e ficam restritos às origens declaradas no manifest (origens locais de teste, www.xfilme.net, subsbr.net e www.baixetorrentshd.org). URLs dinâmicas não garantem ocultar a extensão: sites autorizados podem, em teoria, sondar ou observar recursos acessíveis e efeitos das substituições. O schema Chromium 111 aceita essa opção; seu funcionamento efetivo não foi verificado aqui no Chrome/Edge mínimos. Não há tentativa de contornar a Proteção de Rastreamento do Edge ou verificação de bloqueador no servidor.
+
+Perfis locais por domínio podem aplicar CSS fora da tela para seletores-isca simples e específicos, validados por perfil, flags constantes, interrupção de leitura/escrita de propriedades, supressão de timers por texto literal e respostas locais a fetch configurados. São intervenções específicas: stubs não implementam SDKs completos e podem ser incompatíveis com sites não validados. Não afetam os módulos YouTube/Twitch. Falhas de instalação do perfil não devem interromper a página; interrupções de propriedades, quando explicitamente configuradas, são intencionais e podem interromper o código detector que as acessa.
+
+O debug anti-adblock é solicitado manualmente no console do service worker com antiAdblockDebug(tabId). Consulta os frames naquele momento, mostra stubs reportados, efeitos de iscas, ações de scriptlets e tempo de preparação, sem storage ou envio pela rede. Relatos do mundo MAIN podem ser forjados pela página; o debug não é prova de segurança. O estado transitório termina ao recarregar/fechar o documento. Não há código remoto, coleta para o desenvolvedor, nova dependência ou nova permissão de API.
+
+## Compartilhamento e controle
+
+Não vendemos dados nem os compartilhamos com anunciantes ou serviços de análise. Os pedidos à Twitch descritos acima servem exclusivamente à reprodução do vídeo. O acesso ao GitHub por links de ajuda/privacidade só acontece quando você abre esses links; a política desse site se aplica à visita.
+
+Você pode pausar a proteção pelo popup. A aba atual recarrega para aplicar a mudança; recarregue também outras abas abertas desse site para remover scripts que já estejam em execução. Desinstalar a extensão remove seu armazenamento local do perfil. Se você ativou o debug manualmente, remova a chave com localStorage.removeItem(&#x27;bloqueioPessoal_twitchDebug&#x27;) no console da Twitch; essa chave fica no armazenamento do site, fora do armazenamento da extensão.
+
+As atualizações instaladas pela loja são distribuídas pelo Microsoft Edge Add-ons e estão sujeitas às políticas da Microsoft. A extensão não possui um atualizador remoto próprio.
+
+## Contato
+
+Dúvidas ou pedidos relacionados à privacidade: https://github.com/xdbixcoito-hub/ad-block-privacy/issues. As issues são públicas; não publique tokens, senhas, URLs privadas ou dados pessoais.
+</pre></section><section id="en" lang="en"><pre># Privacy policy — PapaAnúncio
+
+[Português](PRIVACY.md) | English
+
+Updated October 30, 2026.
+
+This policy describes version 0.9.3 prepared for store submission; this does not confirm store submission or publication. Twitch header capture and token rewriting are disabled by default. Check the installed version at edge://extensions or chrome://extensions.
+
+Public information about PapaAnúncio is available at https://github.com/xdbixcoito-hub/ad-block-privacy. Its purpose is to block ads and trackers and let users pause protection on individual websites. It requires no extension account and contains no telemetry, analytics tools, advertising of its own or developer-operated backend.
+
+PapaAnúncio also uses the localized names AdChomper, ZampaAnuncios, 广告吞吞 and ऐडखाऊ. The interface follows the browser language through chrome.i18n, without a translation service, text uploads or a new stored preference. Diagnostics show the localized name. This policy remains available in Portuguese and English.
+
+## Data used in the browser
+
+The extension accesses the current page/frame URL and domain to determine which rules and selectors apply. The popup reads the active tab and the browser-provided matched-rule count. It does not maintain a browsing history.
+
+Paused domains (disabledSites) and rule activation totals/status (ruleStatus and ruleStatusErrors) are stored in chrome.storage.local in the browser profile. Rule activation errors may include the browser API error message. The extension does not synchronize these values or send them to the developer.
+
+On supported websites, locally packaged scripts read and adapt page elements and player responses to attempt to remove advertising. The extension logic and filter lists used during browsing are included in the installed package. Filter lists are downloaded only by the developer during the project build.
+
+## Cosmetic CSS and local messages
+
+The cosmetic script collects tokens from DOM IDs, classes, tag names and attribute names. It sends these tokens only through chrome.runtime.sendMessage to the extension&#x27;s own local service worker, which selects packaged filters and applies domain exceptions. These messages make no network requests. Received tokens are not logged or written to storage; temporary sets of already processed tokens in the page script prevent repeated work and are discarded when the context is destroyed. The worker also checks the URL/frame to validate the document and insert site-specific CSS; this does not create browsing history.
+
+Cosmetic debugging, manually requested in the extension console, shows each frame&#x27;s page origin, specific file and loaded selectors, held temporarily in the tab context. This does not confirm that a selector matched an element. These results are not automatically sent or persistently recorded; the user may view/copy the result locally. This debug feature is separate from the popup diagnostic preview described below.
+
+## Optional diagnostics
+
+The popup offers a local diagnostic preview, prepared only when its panel is expanded. It contains the version, API availability and rule counts, using explicitly selected fields. It excludes websites, history, URLs, error messages, headers, tokens and session data. Nothing is sent automatically. Clicking Copy diagnostics replaces the clipboard contents; you choose whether and where to share it. If automatic copying is unavailable, you can copy the selected text manually. Diagnostics are not saved in extension storage.
+
+## Onboarding page
+
+Onboarding reads ruleStatus/globalPaused once and, where the API exists, toolbar pinning status. Its typed sequence presents local configuration; it does not run a security scan or activate rules. The image, system fonts and effects are local.
+
+## Experimental Twitch module
+
+The module may make additional requests directly to Twitch to obtain playback tokens and ad-free playlists. In its default anonymous mode, auxiliary token requests use credentials: omit and do not send cookies, Authorization or Client-Integrity. They may reuse the application&#x27;s observed public Client-ID; session/device identifier capture is disabled by default. This does not make the connection anonymous to Twitch: Twitch still receives the IP address and the data needed for the request.
+
+If capture is manually enabled, with allowSessionHeaders: false the fetch wrapper captures only client-id, client-session-id, client-version and x-device-id when available. The capture does not read Authorization or Client-Integrity; those values are not cached by the extension, forwarded over BroadcastChannel or stored by the worker. Auxiliary token requests use credentials: omit. If an anonymous token fails, the module does not try complete mode; without a safe backup, it preserves the original playlist. This refers to auxiliary requests, separate from normal page requests described below.
+
+In 0.9.3, headerCapture, adMute and tokenRewrite default to off; workerFilter, backup, playlistFilter and adMetrics default to on. The module transiently reads HLS playlists received through fetch and XHR in the page/worker to remove segments and metadata classified as ads, preserving the original when remaining media is unsafe. It may request a backup of up to 480p directly from Twitch during ads and returns to the original variant afterward. Media URLs and required backup tokens are held only in memory, not extension storage or requests to the developer. Normal page requests preserve their own headers and credentials: Authorization/Client-Integrity values are not extracted by the filter but may still be sent by the browser to Twitch as specified by the page. The previous token rewrite remains a disabled manual source option.
+
+GQL observation (observePlayback=true) reads only the application&#x27;s public Client-ID and the native live response signature to associate the channel with its Usher master. The original request and response are preserved. These fields are held in a private Map of up to 32 entries per context, valid for 60 seconds; expired entries are removed on the next access/observation or when the context closes. They are not placed in globals, sessionStorage, chrome.storage, logs or BroadcastChannel. The native token value is not retained. When the signature matches the same channel&#x27;s Usher URL, the Client-ID may be reused in anonymous auxiliary requests to Twitch itself. This observation does not read Authorization/Client-Integrity; headerCapture remains disabled. This context is not shared between frames/workers. Missing, failed or expired observations fall back to the configured public Client-ID. This does not make requests anonymous to Twitch.
+
+Isolated GQL operations named VideoAdTrack/AdReport may receive an empty local JSON response without sending those requests to Twitch. Mixed batches, unsupported formats and other metrics may still be sent. This does not guarantee preventing detection or all tracking. Metric request bodies are not logged. Filtering and synthetic XHR events can be detected by the site. There is no public proxy; effectiveness, quality and playback are not guaranteed.
+
+The allowSessionHeaders flag exists only in source code for development, defaults to false and has no interface or chrome.storage setting. Manually changing it to true, also enabling headerCapture to capture headers, and reloading allows these headers to be captured and permits complete-mode requests using credentials: same-origin (or complete mode directly if backupAnonymous is false). In that development mode, values and tokens remain in memory and may be sent in auxiliary requests to Twitch itself, not to the developer. Playlists and segments are still requested from Twitch and its returned media addresses. Twitch&#x27;s privacy policy applies to those connections; no third-party proxy is used.
+
+Twitch debugging is off by default. When manually enabled by the user, it writes diagnostics such as channel name, player type, segment counts and request duration to the local console. With session access disabled, GQL diagnostics include status only, not response bodies or errors messages. In the development session mode, diagnostics retain redaction of tokens and known header values. Logs are not sent automatically.
+
+## Global pause, counters and activity
+
+Global pause stores globalPaused (state) and pausedUntil (resume time or null) in chrome.storage.local. The alarms permission schedules resumption while the popup is closed; browser suspension may delay an alarm. Startup checks expired pauses. disabledSites remains independent from global pause.
+
+counters stores total, today and day (local date). These are rule actions observed by queries when opening the popup, not a complete count of ads or unique requests. Repeated observations are deduplicated with temporary tab/rule/time markers in storage.session (matchWatermarks, up to 1,000 tabs). Unobserved events, API limits, timestamp ties and restarts can affect counts. Today resets by local date; the accumulated value stays in the profile.
+
+storage.session also holds activity: only the three latest confirmed pause/resume actions, with an action code and timestamp, without domains or URLs. The browser clears session data at session end; nothing is sent to the developer. Voluntary diagnostics still exports only explicitly permitted fields.
+
+Pausing changes network rules immediately and removes registrations for future navigations. Scripts/CSS already running in other tabs need another load; popup actions reload only the current tab. Alarm resumption attempts to reload only the active HTTP/HTTPS tab.
+
+## Visual update and local notifications
+
+“Threats neutralized” is a visual label for observed rule actions, not a security assessment. There is no malware scan or confirmation of threats. In an unpacked installation, when the browser provides onRuleMatchedDebug, the worker checks local block rules and sends only tabId and a count to the extension UI. The code does not read event URLs or headers. tabLiveCounts and liveRequestKeys are temporary storage.session values, limited to the latest 128 tabs and up to 256 request/rule keys per tab; they are cleared on tab closure or session end. These are browser-generated IDs, not Twitch credentials.
+
+Store installations do not provide that immediate event. The popup queries getMatchedRules on opening and every 35 seconds while visible, backing off on errors or quota limits. These queries also update Today/Total. There is no periodic query with the popup closed and nothing is sent to developer servers. Network blocking works without the counter being open.
+
+## Local anti-adblock resources — 0.9.3
+
+This version includes original minimal advertising/analytics API stubs and packaged empty responses. When enabled for a validated domain, browser redirect rules replace configured scripts/GET test requests with local files without sending those requests to advertising servers. The GPT/IMA profile is enabled for www.xfilme.net and subsbr.net after owner confirmation, including five control sites without problems. On www.baixetorrentshd.org, a profile replaces the configured adsbygoogle script/probes and keeps only specific baits off screen with minimum dimensions and opacity 1; real ads outside those selectors are not revealed. The owner confirmed that the warning was resolved and navigation worked. Redirects are restricted to configured resources and domains; this does not represent general website coverage. Unmatched requests remain subject to other rules and normal browser behavior.
+
+Stub files declared in web_accessible_resources use use_dynamic_url: true and are restricted to the origins declared in the manifest (local test origins, www.xfilme.net, subsbr.net and www.baixetorrentshd.org). Dynamic URLs do not guarantee hiding the extension: allowed websites may, in theory, probe or observe accessible resources and substitution effects. The Chromium 111 schema accepts this option; its effective behavior has not been verified here on minimum Chrome/Edge versions. There is no attempt to bypass Edge Tracking Prevention or server-side blocker verification.
+
+Local domain profiles may apply offscreen CSS for simple, specific bait selectors validated per profile, constant flags, property read/write interruption, timer suppression by literal text and local responses to configured fetch calls. These are specific interventions: stubs do not implement full SDKs and may be incompatible with unvalidated websites. They do not affect the YouTube/Twitch modules. Profile installation failures should not interrupt the page; explicitly configured property interruptions are intentional and may interrupt detector code accessing those properties.
+
+Anti-adblock debugging is manually requested in the service worker console using antiAdblockDebug(tabId). It queries frames at that moment and shows reported stubs, bait effects, scriptlet actions and setup time, without storage or network transmission. MAIN-world reports can be forged by the page; debugging is not security evidence. Temporary state ends when the document reloads/closes. There is no remote code, developer-side collection, new dependency or new API permission.
+
+## Sharing and controls
+
+We do not sell data or share it with advertisers or analytics services. The Twitch requests described above serve video playback only. GitHub help/privacy links are opened only when you choose to open them; GitHub&#x27;s policies apply to that visit.
+
+You can pause protection through the popup. The current tab reloads to apply the change. Reload other open tabs for that site as well to remove scripts that are already running. Uninstalling the extension removes its local profile storage. If you manually enabled debugging, remove its key with localStorage.removeItem(&#x27;bloqueioPessoal_twitchDebug&#x27;) in the Twitch console. That key belongs to the website&#x27;s storage, outside extension storage.
+
+Updates installed through the store are distributed by Microsoft Edge Add-ons and are subject to Microsoft&#x27;s policies. The extension has no remote updater of its own.
+
+## Contact
+
+Privacy questions or requests: https://github.com/xdbixcoito-hub/ad-block-privacy/issues. Issues are public; do not post tokens, passwords, private URLs or personal information.
+</pre></section></main></html>
