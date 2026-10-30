@@ -8,6 +8,6 @@ Extensão gratuita para reduzir anúncios e rastreadores no Microsoft Edge, com 
 - [Privacy policy in English](PRIVACY.en.md)
 - [Suporte e dúvidas](https://github.com/xdbixcoito-hub/ad-block-privacy/issues)
 
-As políticas descrevem a 0.8.7 preparada para submissão. A versão aprovada disponível é a indicada na loja; atualizar esta documentação não publica uma extensão. Versões antigas podem ter comportamento diferente, como descrito na política.
+As políticas desta branch descrevem o candidato 0.9.0. A validação obrigatória do novo anti-adblock com a extensão real ainda está pendente; não há domínios públicos ativados. Atualizar a documentação não confirma submissão nem publicação da extensão. A versão aprovada disponível é a indicada na loja.
 
 Issues são públicas. Não publique tokens, senhas, URLs privadas, dados de conta ou informações pessoais. Este repositório público contém informações e política; não precisa de GitHub Pages para os links acima funcionarem.
