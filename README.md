@@ -1,13 +1,15 @@
 # PapaAnúncio
 
-Extensão gratuita para reduzir anúncios e rastreadores no Microsoft Edge, com controles locais por site e pausa global. Sem conta da extensão ou telemetria para o desenvolvedor. A eficácia varia por site; não é um antivírus nem uma garantia de segurança ou bloqueio completo.
+Extensão gratuita para reduzir anúncios e rastreadores no Microsoft Edge, com controles locais por site e pausa global. Não exige conta própria. Relatos são enviados ao Web3Forms somente por ação explícita do usuário, com campo de site e diagnóstico opcionais; consulte a política antes de enviar. Não há garantia de bloquear todos os anúncios ou resolver restrições de sites/contas.
+
+Desenvolvido por [Marco.elev](https://www.instagram.com/marco.elev/).
 
 [Instalar pela página oficial do Microsoft Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/papaan%C3%BAncio/dkhdokbphfkndloeabmdpniaedpmnahl)
 
 - [Política de privacidade em português](PRIVACY.md)
 - [Privacy policy in English](PRIVACY.en.md)
-- [Suporte e dúvidas](https://github.com/xdbixcoito-hub/ad-block-privacy/issues)
+- [Suporte](https://github.com/BIXCOIT0/ad-block-privacy/issues)
 
-Estas políticas descrevem a versão 0.9.3 preparada para envio à loja. Perfis locais de três domínios foram validados pelo responsável, que autorizou a publicação do pacote. A documentação não confirma submissão, certificação ou disponibilidade dessa atualização na loja. A versão disponível é a indicada na ficha da Microsoft.
+Estas políticas descrevem a versão 0.9.8 preparada para envio à loja em 04/11/2026, com recuperação automática limitada no YouTube sem apagar cookies ou logins. O responsável autorizou a publicação enquanto o teste prolongado continua durante o uso. Esta documentação não confirma upload, certificação ou disponibilidade da atualização na loja. A versão disponível é a indicada na ficha da Microsoft.
 
-Issues são públicas. Não publique tokens, senhas, URLs privadas, dados de conta ou informações pessoais. Este repositório público contém informações e política; não precisa de GitHub Pages para os links acima funcionarem.
+Issues são públicas. Não publique senhas, tokens, URLs privadas ou dados de conta. Os links de privacidade deste repositório funcionam sem GitHub Pages.

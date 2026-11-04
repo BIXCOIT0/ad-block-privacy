@@ -2,19 +2,19 @@
 
 Português | [English](PRIVACY.en.md)
 
-Atualizada em 30 de outubro de 2026.
+Atualizada em 4 de novembro de 2026.
 
-Esta política descreve a versão 0.9.3 preparada para envio à loja; isso não confirma submissão ou publicação na loja. A captura de cabeçalhos e a reescrita de tokens da Twitch ficam desligadas por padrão. Confira a versão instalada em edge://extensions ou chrome://extensions.
+Esta política descreve a versão 0.9.8 preparada para envio à loja. A disponibilidade depende da certificação e publicação pela Microsoft. A captura de cabeçalhos e a reescrita de tokens da Twitch ficam desligadas por padrão. Confira a versão instalada em edge://extensions ou chrome://extensions.
 
-Informações públicas do PapaAnúncio estão em https://github.com/xdbixcoito-hub/ad-block-privacy. Sua finalidade é bloquear anúncios e rastreadores e permitir que o usuário pause a proteção por site. Não exige conta própria e não contém telemetria, ferramentas de análise, publicidade própria ou servidor do desenvolvedor.
+Informações públicas do PapaAnúncio estão em https://github.com/BIXCOIT0/ad-block-privacy. Sua finalidade é bloquear anúncios e rastreadores e permitir que o usuário pause a proteção por site. Não exige conta própria e não contém telemetria de navegação, ferramentas de análise, publicidade própria ou servidor do desenvolvedor. Há um formulário opcional de suporte descrito abaixo.
 
-PapaAnúncio também usa os nomes locais AdChomper, ZampaAnuncios, 广告吞吞 e ऐडखाऊ. O idioma da interface segue o navegador via chrome.i18n, sem serviço de tradução, envio de textos ou nova preferência salva. O diagnóstico mostra o nome localizado. Esta política continua disponível em português e inglês.
+PapaAnúncio também usa os nomes locais AdChomper, ZampaAnuncios, 广告吞吞 e ऐडखाऊ. O idioma da interface segue o navegador via chrome.i18n, sem serviço de tradução, envio de textos ou nova preferência salva. Esta política continua disponível em português e inglês.
 
 ## Dados usados no navegador
 
 A extensão acessa o domínio e a URL da página/frame atual para decidir quais regras e seletores aplicar. O popup consulta a aba ativa e o total de ações de regras fornecido pelo navegador. Não mantém um histórico das páginas visitadas.
 
-As preferências de sites pausados (disabledSites) e os totais/estado de ativação das regras (ruleStatus e ruleStatusErrors) são guardados em chrome.storage.local, no perfil do navegador. Erros de ativação de regras podem incluir a mensagem da API do navegador. Esses dados não são sincronizados por esta extensão nem enviados ao desenvolvedor.
+As preferências de sites pausados (disabledSites) e os totais/estado de ativação das regras (ruleStatus e ruleStatusErrors) são guardados em chrome.storage.local, no perfil do navegador. Erros de ativação de regras podem incluir a mensagem da API do navegador. Esses dados não são sincronizados por esta extensão; o formulário opcional abaixo pode enviar contagens de regras, sem as preferências completas.
 
 Nos sites compatíveis, scripts locais leem e adaptam elementos da página e respostas do player para tentar remover publicidade. A lógica da extensão e as listas usadas na navegação estão incluídas no pacote instalado. O download das listas ocorre apenas no build do projeto pelo desenvolvedor.
 
@@ -22,15 +22,11 @@ Nos sites compatíveis, scripts locais leem e adaptam elementos da página e res
 
 O script cosmético coleta tokens de IDs, classes, nomes de tags e nomes de atributos presentes no DOM. Envia esses tokens apenas por chrome.runtime.sendMessage ao service worker local da própria extensão, que seleciona os filtros empacotados e aplica as exceções do domínio. Essas mensagens não fazem pedidos de rede. Os tokens recebidos não são registrados em logs nem gravados em storage; há conjuntos transitórios de tokens já processados no script da página para evitar trabalho repetido, descartados ao destruir o contexto. O worker também consulta a URL/frame para validar o documento e inserir o CSS específico; isso não cria histórico de navegação.
 
-O debug cosmético, solicitado manualmente no console da extensão, mostra por frame a origem da página, o arquivo específico e os seletores carregados, mantidos transitoriamente no contexto da aba. Isso não confirma que um seletor encontrou um elemento. Não há envio automático ou registro persistente desses resultados; o usuário pode ver/copiar o resultado localmente. Esse debug é separado da prévia de diagnóstico do popup descrita abaixo.
-
-## Diagnóstico opcional
-
-O popup oferece uma prévia local de diagnóstico que só é preparada ao expandir o painel. Ela contém versão, disponibilidade de APIs e contagens de regras, usando campos explícitos. Não inclui sites, histórico, URLs, mensagens de erro, cabeçalhos, tokens ou dados da sessão. Nada é enviado automaticamente. Ao clicar em Copiar diagnóstico, o texto substitui o conteúdo da área de transferência; você escolhe se e onde compartilhar. Se a cópia automática não estiver disponível, pode copiar o texto selecionado manualmente. O diagnóstico não é salvo no storage da extensão.
+O debug cosmético, solicitado manualmente no console da extensão, mostra por frame a origem da página, o arquivo específico e os seletores carregados, mantidos transitoriamente no contexto da aba. Isso não confirma que um seletor encontrou um elemento. Não há envio automático ou registro persistente desses resultados; o usuário pode ver/copiar o resultado localmente.
 
 ## Página de inicialização
 
-A página de boas-vindas consulta uma vez ruleStatus/globalPaused e, se a API existir, o estado de fixação do ícone. A sequência digitada apresenta configuração local; não faz varredura de segurança nem ativa regras. Imagem, fontes do sistema e efeitos são locais.
+A página de boas-vindas consulta uma vez ruleStatus/globalPaused. A sequência digitada apresenta configuração local; não faz varredura de segurança nem ativa regras. Imagem, fontes do sistema e efeitos são locais.
 
 ## Módulo experimental da Twitch
 
@@ -38,7 +34,7 @@ O módulo pode fazer pedidos adicionais diretamente à Twitch para obter tokens 
 
 Se a captura for habilitada manualmente, com allowSessionHeaders: false o wrapper de fetch captura somente client-id, client-session-id, client-version e x-device-id quando disponíveis. Authorization e Client-Integrity não são lidos pela captura, não entram no cache da extensão, não são encaminhados pelo BroadcastChannel nem armazenados pelo worker. Os pedidos auxiliares de token usam credentials: omit. Se o token anônimo falhar, o módulo não tenta o modo completo; sem backup seguro, preserva a playlist original. Isso se refere aos pedidos auxiliares, separados dos pedidos normais da página descritos abaixo.
 
-Na 0.9.3, headerCapture, adMute e tokenRewrite vêm desligados; workerFilter, backup, playlistFilter e adMetrics vêm ligados. O módulo lê transitoriamente playlists HLS recebidas via fetch e XHR na página/Worker para retirar segmentos e metadados classificados como anúncio, preservando o original quando a mídia restante não é segura. Pode pedir um backup de até 480p diretamente à Twitch durante anúncios e volta à variante original depois. URLs de mídia e tokens de backup necessários ficam apenas em memória; não são gravados no storage nem enviados ao desenvolvedor. Os pedidos normais da página preservam seus headers e credentials: Authorization/Client-Integrity não são extraídos pelo filtro, mas podem continuar sendo enviados pelo navegador à própria Twitch conforme o pedido da página. A antiga reescrita de token permanece no fonte como opção manual desligada.
+Na 0.9.8, headerCapture, adMute e tokenRewrite vêm desligados; workerFilter, backup, playlistFilter e adMetrics vêm ligados. O módulo lê transitoriamente playlists HLS recebidas via fetch e XHR na página/Worker para retirar segmentos e metadados classificados como anúncio, preservando o original quando a mídia restante não é segura. Pode pedir um backup de até 480p diretamente à Twitch durante anúncios e volta à variante original depois. URLs de mídia e tokens de backup necessários ficam apenas em memória; não são gravados no storage nem enviados ao desenvolvedor. Os pedidos normais da página preservam seus headers e credentials: Authorization/Client-Integrity não são extraídos pelo filtro, mas podem continuar sendo enviados pelo navegador à própria Twitch conforme o pedido da página. A antiga reescrita de token permanece no fonte como opção manual desligada.
 
 A observação GQL (observePlayback=true) lê somente o Client-ID público da aplicação e a assinatura da resposta live nativa para associar o canal ao master Usher. A chamada e sua resposta originais são preservadas. Esses campos ficam em um Map privado de até 32 entradas por contexto, com validade de 60 s; vencidos são descartados no próximo acesso/observação ou ao fechar o contexto. Não ficam em globais, sessionStorage, chrome.storage, logs ou BroadcastChannel. O valor do token nativo não é guardado. Quando a assinatura corresponde à URL Usher do mesmo canal, o Client-ID pode ser reutilizado em pedidos auxiliares anônimos à própria Twitch. Não se lê Authorization/Client-Integrity nessa observação; headerCapture continua desligado. Não há compartilhamento desse contexto entre frames/workers. Se a observação faltar, falhar ou expirar, usa-se o Client-ID público configurado. Isso não torna os pedidos anônimos perante a Twitch.
 
@@ -64,7 +60,7 @@ O título “Ameaças neutralizadas” é um nome visual para ações de regras 
 
 Em instalações da loja o evento imediato não é disponibilizado; o popup consulta getMatchedRules ao abrir e a cada 35 segundos enquanto está visível, respeitando recuo em erros/cotas. Essas consultas também atualizam Hoje/Total. Não há consulta periódica com o popup fechado nem envio para servidores do desenvolvedor. O bloqueio de rede funciona mesmo sem o contador aberto.
 
-## Recursos anti-adblock locais — 0.9.3
+## Recursos anti-adblock locais — teste 0.9.8
 
 A versão inclui stubs próprios e mínimos de APIs publicitárias/analytics e respostas vazias empacotadas. Quando habilitados para um domínio validado, regras de redirecionamento do navegador substituem os scripts/pedidos GET de teste configurados por arquivos locais, sem enviar esses pedidos aos servidores de anúncios. O perfil GPT/IMA foi ativado para www.xfilme.net e subsbr.net após confirmação do responsável, incluindo cinco sites de controle sem problemas. Em www.baixetorrentshd.org, um perfil substitui o script/sondas adsbygoogle configurados e mantém somente iscas específicas fora da tela, com dimensões mínimas e opacidade 1; anúncios reais fora desses seletores não são reexibidos. O responsável confirmou a resolução do aviso e a navegação. Os redirects são restritos aos recursos e domínios configurados; isso não representa cobertura geral de sites. Pedidos não correspondentes continuam sujeitos às outras regras e ao comportamento normal do navegador.
 
@@ -72,7 +68,27 @@ Os arquivos de stub declarados em web_accessible_resources usam use_dynamic_url:
 
 Perfis locais por domínio podem aplicar CSS fora da tela para seletores-isca simples e específicos, validados por perfil, flags constantes, interrupção de leitura/escrita de propriedades, supressão de timers por texto literal e respostas locais a fetch configurados. São intervenções específicas: stubs não implementam SDKs completos e podem ser incompatíveis com sites não validados. Não afetam os módulos YouTube/Twitch. Falhas de instalação do perfil não devem interromper a página; interrupções de propriedades, quando explicitamente configuradas, são intencionais e podem interromper o código detector que as acessa.
 
-O debug anti-adblock é solicitado manualmente no console do service worker com antiAdblockDebug(tabId). Consulta os frames naquele momento, mostra stubs reportados, efeitos de iscas, ações de scriptlets e tempo de preparação, sem storage ou envio pela rede. Relatos do mundo MAIN podem ser forjados pela página; o debug não é prova de segurança. O estado transitório termina ao recarregar/fechar o documento. Não há código remoto, coleta para o desenvolvedor, nova dependência ou nova permissão de API.
+O debug anti-adblock é solicitado manualmente no console do service worker com antiAdblockDebug(tabId). Consulta frames e até 500 registros de regras observadas da aba naquele momento, mostra stubs reportados, efeitos de iscas, ações de scriptlets e resumo de regras de bloqueio, sem URLs dos pedidos, storage ou envio pela rede. Relatos do mundo MAIN podem ser forjados pela página; o debug não é prova de segurança. O estado transitório termina ao recarregar/fechar o documento. Não há código remoto, coleta para o desenvolvedor, nova dependência ou nova permissão de API.
+
+Os ajustes de compatibilidade funcionam internamente nas páginas HTTP/HTTPS elegíveis, exceto YouTube/Twitch. O botão dedicado foi removido do popup na 0.9.8 a pedido do responsável. Além dos três perfis específicos, há uma camada geral para uma assinatura sintética de isca e duas sondas de imagem exatas. Continuam ligados por padrão; preferências legadas em compatibilityDisabledSites são preservadas localmente e não são transmitidas. A pausa global ou do site suspende esses ajustes. Scripts/CSS já instalados podem precisar de recarga da aba para desaparecer. Exceções locais podem abranger subdomínios.
+
+
+A camada geral usa dois redirects GET exclusivamente para pedidos de imagem aos caminhos Google configurados com o parâmetro _dns_ numérico e sem outros parâmetros. A resposta é uma imagem SVG transparente 1×1 empacotada, sem scripts ou conteúdo externo. Scripts de anúncios reais, fetch/XHR, POST e demais rastreadores não recebem essa exceção geral. O CSS geral alcança somente um div vazio com prefixo de ID abd-ext-bait- e todas as cinco classes esperadas pelo detector, mantendo-o fora da tela. Não remove janelas de aviso às cegas nem libera conteúdo no servidor.
+
+Apenas antiadblock/probes/empty.svg passa a ser acessível a todas as origens HTTP/HTTPS, com use_dynamic_url:true. Essa ampliação permite, em teoria, sondagem da extensão por mais sites; URLs dinâmicas não garantem ocultação. Os stubs JavaScript continuam restritos aos domínios dos perfis. Pausas e a preferência local de compatibilidade suspendem as intervenções correspondentes. A cobertura é por padrões reconhecidos, sem garantia para todos os sites ou versões de detector.
+
+
+## Caixa Preta e formulário opcional de suporte
+
+A Caixa Preta registra em tempo real console.error, console.warn e console.log do código da extensão, além de exceções não tratadas e promessas rejeitadas nesses contextos. Mantém até 50 entradas recentes, com tipo, horário, mensagem limitada a 600 caracteres, componente e arquivo/linha/coluna quando disponíveis. Argumentos que são objetos arbitrários não são serializados. Padrões conhecidos de URLs, e-mails, credenciais e identificadores longos são ocultados antes do registro; essa filtragem não garante remover toda informação sensível.
+
+O service worker reúne os registros em chrome.storage.session, chave blackboxLogs, com escrita centralizada e sem storage.local para esses logs. A sessão não é um histórico permanente: o navegador a descarta ao encerrar a sessão/recarregar a extensão. Cada componente também tem memória local limitada. O conteúdo de páginas, o console MAIN de sites e os módulos MAIN YouTube/Twitch não são instrumentados. Nos scripts de conteúdo isolados, erros externos sem origem comprovada na extensão são ignorados. O módulo não lê retroativamente o Console. As funções originais do console e os handlers de erro existentes continuam funcionando.
+
+O formulário Reportar Problema fica em página dedicada. A caixa Anexar dados de diagnóstico automaticamente vem desmarcada, mas o envio só acontece após clicar em Enviar Relato; desmarcar exclui diagnóstico e logs do pedido. Os dados opcionais incluem versão, disponibilidade de APIs, contagens de regras e console_logs. Se não houver registros, o campo informa que nenhum erro foi detectado na sessão. A prévia pode ser consultada antes do envio. Desmarcar o anexo não apaga nem desliga o registro local da sessão.
+
+O endpoint deste pacote está configurado para enviar POST HTTPS ao Web3Forms para entregar o relato ao desenvolvedor. Esse serviço receberá o texto digitado, os anexos selecionados e os dados normais da conexão, como IP; aplicam-se suas políticas e configuração de retenção. O texto livre pode conter informações que o próprio usuário escrever. Ao abrir o formulário pelo popup, o domínio da aba de origem é preenchido no campo Site com problema. Ele fica visível e pode ser corrigido ou apagado; se permanecer preenchido, é enviado como site ao clicar em Enviar Relato, independentemente do anexo de logs. Somente o hostname é enviado, sem caminho, porta, parâmetros ou fragmento da URL. O formulário pode ser aberto diretamente e preenchido manualmente. A extensão não adiciona histórico, URL completa da aba, preferências completas, cabeçalhos ou tokens de sessão ao relato. Mensagens textuais dos registros ainda podem conter informações sensíveis apesar da filtragem. Revise os dados e não envie segredos. O diagnóstico não é enviado em segundo plano, e não há envio periódico ou automático.
+
+Nesta integração de teste 0.9.8, o Web3Forms está configurado com a chave pública de formulário fornecida pelo responsável. A política do serviço está em https://web3forms.com/privacy. O transporte omite cookies e referenciador; logs e diagnóstico são texto JSON. A página dedicada substitui o antigo painel Gmail, que continua removido.
 
 ## Compartilhamento e controle
 
@@ -84,4 +100,10 @@ As atualizações instaladas pela loja são distribuídas pelo Microsoft Edge Ad
 
 ## Contato
 
-Dúvidas ou pedidos relacionados à privacidade: https://github.com/xdbixcoito-hub/ad-block-privacy/issues. As issues são públicas; não publique tokens, senhas, URLs privadas ou dados pessoais.
+Dúvidas ou pedidos relacionados à privacidade: https://github.com/BIXCOIT0/ad-block-privacy/issues. As issues são públicas; não publique tokens, senhas, URLs privadas ou dados pessoais.
+
+## Recuperação de reprodução e doação — integração 0.9.8
+
+A recuperação do YouTube é automática, sem botão de limpeza. Um script isolado observa somente o player da página principal nos hosts suportados. Se a aba estiver visível e online e um vídeo em reprodução ficar pelo menos 15 segundos sem avançar, o worker valida origem/documento e preferências e pode recarregar a aba com bypassCache:true. Não faz isso com vídeos pausados, encerrados, em busca ou player oculto. O controle em chrome.storage.session.youtubeRecoveryAttempts guarda até 128 IDs de aba e horários, sem URLs nem dados da conta, por um intervalo de dez minutos; entradas vencidas são descartadas no próximo uso e a da aba fechada é removida. Isso impede recargas repetidas após reinício do worker. Falhar ao persistir o controle impede a recarga. Não limpa dados de sites, cookies, senhas salvas ou caches do navegador, não troca de conta nem desregistra service workers. O cache HTTP é ignorado na recarga; respostas do servidor/service worker podem continuar dependendo da conta. O monitor não envia relatórios nem dados para terceiros.
+
+installDate e donationPrompted ficam no storage.local da extensão para a carência de sete dias e dispensa do pedido de apoio. Valores legados, inclusive hasDonated, são preservados. O botão Pix abre a página https://bixcoit0.github.io/apoio-AD-BLOCK/ após o clique; as políticas desse destino se aplicam. Abrir a página não verifica nem confirma pagamento.
