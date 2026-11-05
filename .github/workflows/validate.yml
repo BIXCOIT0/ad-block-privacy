@@ -1,0 +1,36 @@
+name: Validar políticas e página de leitura
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: '24'
+      - run: |
+          python3 scripts/render_privacy.py --check
+          python3 scripts/test_privacy.py
+      - name: Preparar ferramenta de navegação com versão fixada
+        run: |
+          npm install --prefix /tmp/privacy-tools --ignore-scripts --no-audit --no-fund playwright@1.56.1
+          /tmp/privacy-tools/node_modules/.bin/playwright install --with-deps chromium
+      - name: Testar página sem pedidos externos
+        env:
+          NODE_PATH: /tmp/privacy-tools/node_modules
+        run: node scripts/test-browser.cjs
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: privacidade-capturas-${{ github.run_id }}
+          path: test-results/
+          if-no-files-found: ignore
+          retention-days: 14

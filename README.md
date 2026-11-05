@@ -1,15 +1,39 @@
-# PapaAnúncio
+# PapaAnúncio — privacidade e suporte
 
-Extensão gratuita para reduzir anúncios e rastreadores no Microsoft Edge, com controles locais por site e pausa global. Não exige conta própria. Relatos são enviados ao Web3Forms somente por ação explícita do usuário, com campo de site e diagnóstico opcionais; consulte a política antes de enviar. Não há garantia de bloquear todos os anúncios ou resolver restrições de sites/contas.
+Extensão gratuita para reduzir anúncios e rastreadores no Microsoft Edge, com controles locais por site e pausa global. Em inglês, AdChomper. Desenvolvido por [Marco.elev](https://www.instagram.com/marco.elev/).
 
-Desenvolvido por [Marco.elev](https://www.instagram.com/marco.elev/).
+[Instalar pela página oficial do Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/papaan%C3%BAncio/dkhdokbphfkndloeabmdpniaedpmnahl)
 
-[Instalar pela página oficial do Microsoft Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/papaan%C3%BAncio/dkhdokbphfkndloeabmdpniaedpmnahl)
+## Começar e obter ajuda
 
-- [Política de privacidade em português](PRIVACY.md)
+Use o popup para pausar a proteção no site atual ou em todos os sites. Depois de uma alteração, outras abas já abertas podem precisar ser recarregadas. A contagem indica ações de regras observadas, não uma avaliação de segurança nem um número exato de anúncios.
+
+Para relatar um problema, informe o domínio e o que aconteceu, incluindo versão instalada e navegador. Na extensão, o diagnóstico é opcional e pode ser revisado antes do envio. Não publique senhas, tokens, URLs privadas ou logs com dados pessoais nas [issues públicas](https://github.com/BIXCOIT0/ad-block-privacy/issues).
+
+Não há garantia de bloquear todos os anúncios. O comportamento de YouTube e Twitch pode mudar com os serviços; o módulo Twitch é experimental.
+
+## Privacidade
+
+- [Política em português](PRIVACY.md)
 - [Privacy policy in English](PRIVACY.en.md)
-- [Suporte](https://github.com/BIXCOIT0/ad-block-privacy/issues)
+- [Página de leitura](index.html)
 
-Estas políticas descrevem a versão 0.9.8 preparada para envio à loja em 04/11/2026, com recuperação automática limitada no YouTube sem apagar cookies ou logins. O responsável autorizou a publicação enquanto o teste prolongado continua durante o uso. Esta documentação não confirma upload, certificação ou disponibilidade da atualização na loja. A versão disponível é a indicada na ficha da Microsoft.
+A revisão proposta das políticas descreve a linha 0.9.14 e identifica separadamente mudanças da candidata 0.9.16. Referências históricas não indicam a versão atual da loja. Consulte a versão instalada em edge://extensions e a ficha oficial. A versão publicada informada pelo responsável é 0.9.14; alterações de candidatas não significam publicação.
 
-Issues são públicas. Não publique senhas, tokens, URLs privadas ou dados de conta. Os links de privacidade deste repositório funcionam sem GitHub Pages.
+Relatos pelo formulário usam Web3Forms somente por ação explícita. Diagnósticos podem conter dados sensíveis apesar dos filtros. Leia a política e revise o conteúdo.
+
+## Apoio voluntário
+
+[Página Pix](https://bixcoit0.github.io/apoio-AD-BLOCK/). Abrir a página não confirma um pagamento.
+
+## Manutenção
+
+Este repositório público mantém políticas e suporte. O código da extensão é privado e não deve ser copiado para cá. Preservar os caminhos PRIVACY.md e PRIVACY.en.md: são usados pela extensão e pela loja. Alterações legais devem conferir comportamento da versão aplicável; não basta substituir números.
+
+A organização em andamento preserva esses links e prepara uma fonte única de políticas com HTML semântico e testes. Esta atualização do README não modifica as políticas nem confirma publicação de atualização.
+
+## Gerar e validar a página
+
+PRIVACY.md e PRIVACY.en.md são as fontes editáveis. Execute `python3 scripts/render_privacy.py` depois de alterá-las. Não editar index.html à mão. `python3 scripts/render_privacy.py --check` detecta divergências e `python3 scripts/test_privacy.py` valida estrutura, links internos e escapes. O renderizador usa um subconjunto explícito de Markdown e não executa HTML ou scripts da fonte.
+
+O workflow de validação não publica Pages. Testes de Chromium usam páginas locais, quatro larguras e zoom CSS 1x/2x, navegação PT/EN e skip link, com capturas de alto contraste. Zoom real e leitor de tela precisam de avaliação manual. Checagem de tópicos PT/EN não substitui revisão humana de equivalência.
