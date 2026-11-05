@@ -18,7 +18,7 @@ Não há garantia de bloquear todos os anúncios. O comportamento de YouTube e T
 - [Privacy policy in English](PRIVACY.en.md)
 - [Página de leitura](index.html)
 
-As políticas atuais ainda contêm referências históricas à 0.9.8 e estão em reconciliação documental. Não trate esse número como a versão atual da loja. Consulte a versão instalada em edge://extensions e a ficha oficial. A versão publicada informada pelo responsável é 0.9.14; alterações de candidatas não significam publicação.
+A revisão proposta das políticas descreve a linha 0.9.14 e identifica separadamente mudanças da candidata 0.9.16. Referências históricas não indicam a versão atual da loja. Consulte a versão instalada em edge://extensions e a ficha oficial. A versão publicada informada pelo responsável é 0.9.14; alterações de candidatas não significam publicação.
 
 Relatos pelo formulário usam Web3Forms somente por ação explícita. Diagnósticos podem conter dados sensíveis apesar dos filtros. Leia a política e revise o conteúdo.
 
@@ -31,3 +31,9 @@ Relatos pelo formulário usam Web3Forms somente por ação explícita. Diagnóst
 Este repositório público mantém políticas e suporte. O código da extensão é privado e não deve ser copiado para cá. Preservar os caminhos PRIVACY.md e PRIVACY.en.md: são usados pela extensão e pela loja. Alterações legais devem conferir comportamento da versão aplicável; não basta substituir números.
 
 A organização em andamento preserva esses links e prepara uma fonte única de políticas com HTML semântico e testes. Esta atualização do README não modifica as políticas nem confirma publicação de atualização.
+
+## Gerar e validar a página
+
+PRIVACY.md e PRIVACY.en.md são as fontes editáveis. Execute `python3 scripts/render_privacy.py` depois de alterá-las. Não editar index.html à mão. `python3 scripts/render_privacy.py --check` detecta divergências e `python3 scripts/test_privacy.py` valida estrutura, links internos e escapes. O renderizador usa um subconjunto explícito de Markdown e não executa HTML ou scripts da fonte.
+
+O workflow de validação não publica Pages. Testes de Chromium usam páginas locais, quatro larguras e zoom CSS 1x/2x, navegação PT/EN e skip link, com capturas de alto contraste. Zoom real e leitor de tela precisam de avaliação manual. Checagem de tópicos PT/EN não substitui revisão humana de equivalência.
