@@ -2,9 +2,9 @@
 
 Português | [English](PRIVACY.en.md)
 
-Atualizada em 4 de novembro de 2026.
+Atualizada em 5 de novembro de 2026.
 
-Esta política descreve a versão 0.9.8 preparada para envio à loja. A disponibilidade depende da certificação e publicação pela Microsoft. A captura de cabeçalhos e a reescrita de tokens da Twitch ficam desligadas por padrão. Confira a versão instalada em edge://extensions ou chrome://extensions.
+Esta política descreve o comportamento da linha 0.9.14, identificada pelo responsável como publicada e conferida no código principal do projeto. Mudanças da candidata 0.9.16 são identificadas em seção separada e não significam que a atualização foi publicada. A ficha da Microsoft e a versão instalada determinam a disponibilidade efetiva. A captura de cabeçalhos e a reescrita de tokens da Twitch ficam desligadas por padrão. Confira a versão instalada em edge://extensions ou chrome://extensions.
 
 Informações públicas do PapaAnúncio estão em https://github.com/BIXCOIT0/ad-block-privacy. Sua finalidade é bloquear anúncios e rastreadores e permitir que o usuário pause a proteção por site. Não exige conta própria e não contém telemetria de navegação, ferramentas de análise, publicidade própria ou servidor do desenvolvedor. Há um formulário opcional de suporte descrito abaixo.
 
@@ -34,7 +34,7 @@ O módulo pode fazer pedidos adicionais diretamente à Twitch para obter tokens 
 
 Se a captura for habilitada manualmente, com allowSessionHeaders: false o wrapper de fetch captura somente client-id, client-session-id, client-version e x-device-id quando disponíveis. Authorization e Client-Integrity não são lidos pela captura, não entram no cache da extensão, não são encaminhados pelo BroadcastChannel nem armazenados pelo worker. Os pedidos auxiliares de token usam credentials: omit. Se o token anônimo falhar, o módulo não tenta o modo completo; sem backup seguro, preserva a playlist original. Isso se refere aos pedidos auxiliares, separados dos pedidos normais da página descritos abaixo.
 
-Na 0.9.8, headerCapture, adMute e tokenRewrite vêm desligados; workerFilter, backup, playlistFilter e adMetrics vêm ligados. O módulo lê transitoriamente playlists HLS recebidas via fetch e XHR na página/Worker para retirar segmentos e metadados classificados como anúncio, preservando o original quando a mídia restante não é segura. Pode pedir um backup de até 480p diretamente à Twitch durante anúncios e volta à variante original depois. URLs de mídia e tokens de backup necessários ficam apenas em memória; não são gravados no storage nem enviados ao desenvolvedor. Os pedidos normais da página preservam seus headers e credentials: Authorization/Client-Integrity não são extraídos pelo filtro, mas podem continuar sendo enviados pelo navegador à própria Twitch conforme o pedido da página. A antiga reescrita de token permanece no fonte como opção manual desligada.
+Na linha 0.9.14, headerCapture, adMute e tokenRewrite vêm desligados; workerFilter, backup, playlistFilter e adMetrics vêm ligados. O módulo lê transitoriamente playlists HLS recebidas via fetch e XHR na página/Worker para retirar segmentos e metadados classificados como anúncio, preservando o original quando a mídia restante não é segura. Pode pedir um backup de até 480p diretamente à Twitch durante anúncios e volta à variante original depois. URLs de mídia e tokens de backup necessários ficam apenas em memória; não são gravados no storage nem enviados ao desenvolvedor. Os pedidos normais da página preservam seus headers e credentials: Authorization/Client-Integrity não são extraídos pelo filtro, mas podem continuar sendo enviados pelo navegador à própria Twitch conforme o pedido da página. A antiga reescrita de token permanece no fonte como opção manual desligada.
 
 A observação GQL (observePlayback=true) lê somente o Client-ID público da aplicação e a assinatura da resposta live nativa para associar o canal ao master Usher. A chamada e sua resposta originais são preservadas. Esses campos ficam em um Map privado de até 32 entradas por contexto, com validade de 60 s; vencidos são descartados no próximo acesso/observação ou ao fechar o contexto. Não ficam em globais, sessionStorage, chrome.storage, logs ou BroadcastChannel. O valor do token nativo não é guardado. Quando a assinatura corresponde à URL Usher do mesmo canal, o Client-ID pode ser reutilizado em pedidos auxiliares anônimos à própria Twitch. Não se lê Authorization/Client-Integrity nessa observação; headerCapture continua desligado. Não há compartilhamento desse contexto entre frames/workers. Se a observação faltar, falhar ou expirar, usa-se o Client-ID público configurado. Isso não torna os pedidos anônimos perante a Twitch.
 
@@ -50,6 +50,8 @@ A pausa geral grava globalPaused (estado) e pausedUntil (horário de retomada ou
 
 counters guarda total, today e day (data local). São ações de regras observadas nas consultas ao abrir o popup; não são um total completo de anúncios ou requisições únicas. Reaberturas são deduplicadas por marcadores transitórios de aba/regra/horário em storage.session (matchWatermarks, até 1.000 abas). Eventos não consultados, limites da API, empates de timestamp e reinícios podem afetar a contagem. O valor de hoje reinicia pela data local; o acumulado permanece no perfil.
 
+Na linha 0.9.14, storage.session também guarda pageObservedCounts: horário de origem da página e contagem observada por ID de aba, limitado a até 128 abas. Fechar a aba remove sua entrada. Esse estado auxilia a apresentação do contador e não contém URL nem histórico permanente de navegação.
+
 storage.session também guarda activity: somente as três últimas ações confirmadas de pausa/retomada, com código da ação e horário, sem domínio ou URL. Os dados de sessão são descartados pelo navegador ao encerrar a sessão; não há envio ao desenvolvedor. O diagnóstico voluntário continua exportando apenas seus campos explicitamente permitidos.
 
 A pausa altera as regras de rede imediatamente e remove registros para próximas navegações. Scripts/CSS já presentes em outras abas precisam de novo carregamento; a ação do popup recarrega somente a aba atual. A retomada por alarme tenta recarregar apenas a aba ativa HTTP/HTTPS.
@@ -60,7 +62,7 @@ O título “Ameaças neutralizadas” é um nome visual para ações de regras 
 
 Em instalações da loja o evento imediato não é disponibilizado; o popup consulta getMatchedRules ao abrir e a cada 35 segundos enquanto está visível, respeitando recuo em erros/cotas. Essas consultas também atualizam Hoje/Total. Não há consulta periódica com o popup fechado nem envio para servidores do desenvolvedor. O bloqueio de rede funciona mesmo sem o contador aberto.
 
-## Recursos anti-adblock locais — teste 0.9.8
+## Recursos anti-adblock locais
 
 A versão inclui stubs próprios e mínimos de APIs publicitárias/analytics e respostas vazias empacotadas. Quando habilitados para um domínio validado, regras de redirecionamento do navegador substituem os scripts/pedidos GET de teste configurados por arquivos locais, sem enviar esses pedidos aos servidores de anúncios. O perfil GPT/IMA foi ativado para www.xfilme.net e subsbr.net após confirmação do responsável, incluindo cinco sites de controle sem problemas. Em www.baixetorrentshd.org, um perfil substitui o script/sondas adsbygoogle configurados e mantém somente iscas específicas fora da tela, com dimensões mínimas e opacidade 1; anúncios reais fora desses seletores não são reexibidos. O responsável confirmou a resolução do aviso e a navegação. Os redirects são restritos aos recursos e domínios configurados; isso não representa cobertura geral de sites. Pedidos não correspondentes continuam sujeitos às outras regras e ao comportamento normal do navegador.
 
@@ -88,7 +90,7 @@ O formulário Reportar Problema fica em página dedicada. A caixa Anexar dados d
 
 O endpoint deste pacote está configurado para enviar POST HTTPS ao Web3Forms para entregar o relato ao desenvolvedor. Esse serviço receberá o texto digitado, os anexos selecionados e os dados normais da conexão, como IP; aplicam-se suas políticas e configuração de retenção. O texto livre pode conter informações que o próprio usuário escrever. Ao abrir o formulário pelo popup, o domínio da aba de origem é preenchido no campo Site com problema. Ele fica visível e pode ser corrigido ou apagado; se permanecer preenchido, é enviado como site ao clicar em Enviar Relato, independentemente do anexo de logs. Somente o hostname é enviado, sem caminho, porta, parâmetros ou fragmento da URL. O formulário pode ser aberto diretamente e preenchido manualmente. A extensão não adiciona histórico, URL completa da aba, preferências completas, cabeçalhos ou tokens de sessão ao relato. Mensagens textuais dos registros ainda podem conter informações sensíveis apesar da filtragem. Revise os dados e não envie segredos. O diagnóstico não é enviado em segundo plano, e não há envio periódico ou automático.
 
-Nesta integração de teste 0.9.8, o Web3Forms está configurado com a chave pública de formulário fornecida pelo responsável. A política do serviço está em https://web3forms.com/privacy. O transporte omite cookies e referenciador; logs e diagnóstico são texto JSON. A página dedicada substitui o antigo painel Gmail, que continua removido.
+Na linha 0.9.14, o Web3Forms está configurado com a chave pública de formulário fornecida pelo responsável. A política do serviço está em https://web3forms.com/privacy. O transporte omite cookies e referenciador; logs e diagnóstico são texto JSON. A página dedicada substitui o antigo painel Gmail, que continua removido.
 
 ## Compartilhamento e controle
 
@@ -102,8 +104,18 @@ As atualizações instaladas pela loja são distribuídas pelo Microsoft Edge Ad
 
 Dúvidas ou pedidos relacionados à privacidade: https://github.com/BIXCOIT0/ad-block-privacy/issues. As issues são públicas; não publique tokens, senhas, URLs privadas ou dados pessoais.
 
-## Recuperação de reprodução e doação — integração 0.9.8
+## Recuperação de reprodução e doação
 
 A recuperação do YouTube é automática, sem botão de limpeza. Um script isolado observa somente o player da página principal nos hosts suportados. Se a aba estiver visível e online e um vídeo em reprodução ficar pelo menos 15 segundos sem avançar, o worker valida origem/documento e preferências e pode recarregar a aba com bypassCache:true. Não faz isso com vídeos pausados, encerrados, em busca ou player oculto. O controle em chrome.storage.session.youtubeRecoveryAttempts guarda até 128 IDs de aba e horários, sem URLs nem dados da conta, por um intervalo de dez minutos; entradas vencidas são descartadas no próximo uso e a da aba fechada é removida. Isso impede recargas repetidas após reinício do worker. Falhar ao persistir o controle impede a recarga. Não limpa dados de sites, cookies, senhas salvas ou caches do navegador, não troca de conta nem desregistra service workers. O cache HTTP é ignorado na recarga; respostas do servidor/service worker podem continuar dependendo da conta. O monitor não envia relatórios nem dados para terceiros.
 
 installDate e donationPrompted ficam no storage.local da extensão para a carência de sete dias e dispensa do pedido de apoio. Valores legados, inclusive hasDonated, são preservados. O botão Pix abre a página https://bixcoit0.github.io/apoio-AD-BLOCK/ após o clique; as políticas desse destino se aplicam. Abrir a página não verifica nem confirma pagamento.
+
+
+
+## Mudanças preparadas na candidata 0.9.16
+
+Esta seção descreve código em teste, não uma confirmação de publicação na loja. A candidata mantém em pageObservedCounts até oito documentos por aba e até 128 abas, com IDs de documento, horários/origem temporal e contagens para navegação e retorno pelo histórico (BFCache). Isso é estado transitório de contagem, sem URL ou conteúdo de páginas; não é exportado pelo diagnóstico. Um lote transitório pendingMatchBatch permite recuperar gravações interrompidas de contadores sem duplicação.
+
+O diagnóstico voluntário da candidata também pode incluir build: uma identidade SHA-256 do conteúdo empacotado da extensão. Ela identifica o pacote de código, não o usuário ou dispositivo. Sem anexo autorizado, esse campo não é enviado. Quando a prévia é consultada, o envio usa o mesmo snapshot de diagnóstico; desmarcar e marcar novamente permite obter um snapshot novo.
+
+A Caixa Preta da candidata usa IDs, confirmações e revisões em memória para reenvio sem duplicação e para distinguir uma leitura atrasada do descarte de um registro antigo. O histórico central permanece limitado a 50 entradas em storage.session; as revisões não são identificadores de usuário nem campos adicionais do relato. Melhorias de sanitização não garantem remover todos os dados sensíveis de texto livre. A candidata também preserva a pausa do usuário ao remover um aviso do YouTube e suspende seus monitores durante a saída da página. Não há nova coleta automática, destino de relato, pagamento confirmado ou permissão decorrente dessas mudanças.
