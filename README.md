@@ -18,7 +18,7 @@ Não há garantia de bloquear todos os anúncios. O comportamento de YouTube e T
 - [Privacy policy in English](PRIVACY.en.md)
 - [Página de leitura](index.html)
 
-A revisão proposta das políticas descreve a linha 0.9.14 e identifica separadamente mudanças da candidata 0.9.16. Referências históricas não indicam a versão atual da loja. Consulte a versão instalada em edge://extensions e a ficha oficial. A versão publicada informada pelo responsável é 0.9.14; alterações de candidatas não significam publicação.
+As políticas integradas na main descrevem a linha 0.9.14 e identifica separadamente mudanças da candidata 0.9.16. Referências históricas não indicam a versão atual da loja. Consulte a versão instalada em edge://extensions e a ficha oficial. A versão publicada informada pelo responsável é 0.9.14; alterações de candidatas não significam publicação.
 
 Relatos pelo formulário usam Web3Forms somente por ação explícita. Diagnósticos podem conter dados sensíveis apesar dos filtros. Leia a política e revise o conteúdo.
 
@@ -30,10 +30,14 @@ Relatos pelo formulário usam Web3Forms somente por ação explícita. Diagnóst
 
 Este repositório público mantém políticas e suporte. O código da extensão é privado e não deve ser copiado para cá. Preservar os caminhos PRIVACY.md e PRIVACY.en.md: são usados pela extensão e pela loja. Alterações legais devem conferir comportamento da versão aplicável; não basta substituir números.
 
-A organização em andamento preserva esses links e prepara uma fonte única de políticas com HTML semântico e testes. Esta atualização do README não modifica as políticas nem confirma publicação de atualização.
+A organização em andamento preserva esses links e prepara uma fonte única de políticas com HTML semântico e testes. A integração deste repositório não confirma publicação de uma nova versão da extensão.
 
 ## Gerar e validar a página
 
 PRIVACY.md e PRIVACY.en.md são as fontes editáveis. Execute `python3 scripts/render_privacy.py` depois de alterá-las. Não editar index.html à mão. `python3 scripts/render_privacy.py --check` detecta divergências e `python3 scripts/test_privacy.py` valida estrutura, links internos e escapes. O renderizador usa um subconjunto explícito de Markdown e não executa HTML ou scripts da fonte.
 
 O workflow de validação não publica Pages. Testes de Chromium usam páginas locais, quatro larguras e zoom CSS 1x/2x, navegação PT/EN e skip link, com capturas de alto contraste. Zoom real e leitor de tela precisam de avaliação manual. Checagem de tópicos PT/EN não substitui revisão humana de equivalência.
+
+## Estado da publicação deste repositório
+
+Políticas PT/EN e página HTML gerada foram integradas pelo PR #1, com CI aprovada. GitHub Pages não está habilitado neste repositório no inventário de 05/11/2026; os links públicos PRIVACY.md e PRIVACY.en.md no GitHub continuam sendo as entradas de privacidade. O HTML pode ser servido por hospedagem estática quando essa configuração for autorizada/disponível. Isso não impede ler as políticas no GitHub nem publica a candidata 0.9.16 da extensão.
