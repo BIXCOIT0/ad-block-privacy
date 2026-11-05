@@ -2,9 +2,9 @@
 
 [Português](PRIVACY.md) | English
 
-Updated November 4, 2026.
+Updated November 5, 2026.
 
-This policy describes version 0.9.8 prepared for store submission. Availability depends on Microsoft certification and publication. Twitch header capture and token rewriting are disabled by default. Check the installed version at edge://extensions or chrome://extensions.
+This policy describes the 0.9.14 line, identified as published by the maintainer and checked against the project’s main code. Changes in candidate 0.9.16 are identified in a separate section and do not mean the update has been published. The Microsoft listing and installed version determine actual availability. Twitch header capture and token rewriting are disabled by default. Check the installed version at edge://extensions or chrome://extensions.
 
 Public information about PapaAnúncio is available at https://github.com/BIXCOIT0/ad-block-privacy. Its purpose is to block ads and trackers and let users pause protection on individual websites. It requires no extension account and contains no browsing telemetry, analytics tools, advertising of its own or developer-operated backend. An optional support form is described below.
 
@@ -34,7 +34,7 @@ The module may make additional requests directly to Twitch to obtain playback to
 
 If capture is manually enabled, with allowSessionHeaders: false the fetch wrapper captures only client-id, client-session-id, client-version and x-device-id when available. The capture does not read Authorization or Client-Integrity; those values are not cached by the extension, forwarded over BroadcastChannel or stored by the worker. Auxiliary token requests use credentials: omit. If an anonymous token fails, the module does not try complete mode; without a safe backup, it preserves the original playlist. This refers to auxiliary requests, separate from normal page requests described below.
 
-In 0.9.8, headerCapture, adMute and tokenRewrite default to off; workerFilter, backup, playlistFilter and adMetrics default to on. The module transiently reads HLS playlists received through fetch and XHR in the page/worker to remove segments and metadata classified as ads, preserving the original when remaining media is unsafe. It may request a backup of up to 480p directly from Twitch during ads and returns to the original variant afterward. Media URLs and required backup tokens are held only in memory, not extension storage or requests to the developer. Normal page requests preserve their own headers and credentials: Authorization/Client-Integrity values are not extracted by the filter but may still be sent by the browser to Twitch as specified by the page. The previous token rewrite remains a disabled manual source option.
+In the 0.9.14 line, headerCapture, adMute and tokenRewrite default to off; workerFilter, backup, playlistFilter and adMetrics default to on. The module transiently reads HLS playlists received through fetch and XHR in the page/worker to remove segments and metadata classified as ads, preserving the original when remaining media is unsafe. It may request a backup of up to 480p directly from Twitch during ads and returns to the original variant afterward. Media URLs and required backup tokens are held only in memory, not extension storage or requests to the developer. Normal page requests preserve their own headers and credentials: Authorization/Client-Integrity values are not extracted by the filter but may still be sent by the browser to Twitch as specified by the page. The previous token rewrite remains a disabled manual source option.
 
 GQL observation (observePlayback=true) reads only the application's public Client-ID and the native live response signature to associate the channel with its Usher master. The original request and response are preserved. These fields are held in a private Map of up to 32 entries per context, valid for 60 seconds; expired entries are removed on the next access/observation or when the context closes. They are not placed in globals, sessionStorage, chrome.storage, logs or BroadcastChannel. The native token value is not retained. When the signature matches the same channel's Usher URL, the Client-ID may be reused in anonymous auxiliary requests to Twitch itself. This observation does not read Authorization/Client-Integrity; headerCapture remains disabled. This context is not shared between frames/workers. Missing, failed or expired observations fall back to the configured public Client-ID. This does not make requests anonymous to Twitch.
 
@@ -50,6 +50,8 @@ Global pause stores globalPaused (state) and pausedUntil (resume time or null) i
 
 counters stores total, today and day (local date). These are rule actions observed by queries when opening the popup, not a complete count of ads or unique requests. Repeated observations are deduplicated with temporary tab/rule/time markers in storage.session (matchWatermarks, up to 1,000 tabs). Unobserved events, API limits, timestamp ties and restarts can affect counts. Today resets by local date; the accumulated value stays in the profile.
 
+In the 0.9.14 line, storage.session also holds pageObservedCounts: the page time origin and observed count per tab ID, limited to up to 128 tabs. Closing the tab removes its entry. This state supports the displayed counter and contains neither URLs nor a permanent browsing history.
+
 storage.session also holds activity: only the three latest confirmed pause/resume actions, with an action code and timestamp, without domains or URLs. The browser clears session data at session end; nothing is sent to the developer.
 
 Pausing changes network rules immediately and removes registrations for future navigations. Scripts/CSS already running in other tabs need another load; popup actions reload only the current tab. Alarm resumption attempts to reload only the active HTTP/HTTPS tab.
@@ -60,7 +62,7 @@ Pausing changes network rules immediately and removes registrations for future n
 
 Store installations do not provide that immediate event. The popup queries getMatchedRules on opening and every 35 seconds while visible, backing off on errors or quota limits. These queries also update Today/Total. There is no periodic query with the popup closed and nothing is sent to developer servers. Network blocking works without the counter being open.
 
-## Local anti-adblock resources — 0.9.8 test
+## Local anti-adblock resources
 
 This version includes original minimal advertising/analytics API stubs and packaged empty responses. When enabled for a validated domain, browser redirect rules replace configured scripts/GET test requests with local files without sending those requests to advertising servers. The GPT/IMA profile is enabled for www.xfilme.net and subsbr.net after owner confirmation, including five control sites without problems. On www.baixetorrentshd.org, a profile replaces the configured adsbygoogle script/probes and keeps only specific baits off screen with minimum dimensions and opacity 1; real ads outside those selectors are not revealed. The owner confirmed that the warning was resolved and navigation worked. Redirects are restricted to configured resources and domains; this does not represent general website coverage. Unmatched requests remain subject to other rules and normal browser behavior.
 
@@ -88,7 +90,7 @@ Report a Problem is a dedicated page. Attach diagnostic data automatically is un
 
 This package is configured to send HTTPS POST to Web3Forms for delivery to the developer. This service receives typed text, selected attachments and normal connection data such as IP; its policies and configured retention apply. Free text can contain information the user chooses to write. When the form is opened from the popup, the source tab’s hostname is prefilled in Problem website. This visible field can be edited or cleared; if left filled, it is sent as site only when Send Report is clicked, independently of log attachments. Only the hostname is sent, without path, port, query parameters or fragment. The form can also be opened directly and filled manually. The report does not add browsing history, the full tab URL, complete preferences, headers or session tokens. Textual log messages may still contain sensitive information despite filtering. Review data and do not send secrets. Reports are not sent in the background, periodically or automatically.
 
-In this integrated 0.9.8 test package, Web3Forms is configured using the public form key supplied by the maintainer. Its policy is https://web3forms.com/privacy. Requests omit cookies and referrers; logs and diagnostics are formatted JSON text. The dedicated page replaces the old Gmail panel, which remains removed.
+In the 0.9.14 line, Web3Forms is configured using the public form key supplied by the maintainer. Its policy is https://web3forms.com/privacy. Requests omit cookies and referrers; logs and diagnostics are formatted JSON text. The dedicated page replaces the old Gmail panel, which remains removed.
 
 ## Sharing and controls
 
@@ -102,8 +104,18 @@ Updates installed through the store are distributed by Microsoft Edge Add-ons an
 
 Privacy questions or requests: https://github.com/BIXCOIT0/ad-block-privacy/issues. Issues are public; do not post tokens, passwords, private URLs or personal information.
 
-## Playback recovery and donations — integrated 0.9.8
+## Playback recovery and donations
 
 YouTube recovery is automatic, with no cleanup button. An isolated script observes only the player in the main document on supported hosts. If a visible, online tab has an actively playing video that makes no progress for at least 15 seconds, the worker revalidates the origin/document and pause settings and may reload the tab with bypassCache:true. Paused, ended, seeking or hidden players are excluded. chrome.storage.session.youtubeRecoveryAttempts holds up to 128 tab IDs and attempt timestamps, with no URLs or account data, for a ten-minute interval. Expired entries are pruned on the next use; closing a tab removes its entry. This limits reloads across worker restarts. Failure to persist this guard prevents reloading. The feature does not clear site data, cookies, saved passwords or browser caches, switch accounts or unregister service workers. HTTP cache is bypassed for that reload; server and service worker responses may still depend on account state. The monitor does not send reports or data to third parties.
 
 installDate and donationPrompted are stored in extension storage.local for the seven-day grace period and dismissing the support request. Legacy settings, including hasDonated, are preserved. Clicking Pix opens https://bixcoit0.github.io/apoio-AD-BLOCK/ under that destination's policies. Opening the page does not verify or confirm a payment.
+
+
+
+## Changes prepared in candidate 0.9.16
+
+This section describes code under test, not confirmation of store publication. The candidate keeps up to eight documents per tab and up to 128 tabs in pageObservedCounts, with document IDs, timestamps/time origins and counts for navigation and history restoration (BFCache). This is temporary counter state without URLs or page content; it is not exported in diagnostics. A temporary pendingMatchBatch allows interrupted counter writes to recover without duplication.
+
+Optional candidate diagnostics may also include build: a SHA-256 identity of the packaged extension content. It identifies the code package, not a user or device. This field is not sent without authorized diagnostics. When the preview is reviewed, submission uses that same diagnostic snapshot; unchecking and checking the attachment again allows a new snapshot.
+
+The candidate Black Box uses in-memory IDs, acknowledgements and revisions for retries without duplication and to distinguish a delayed read from eviction of an old record. Central history remains limited to 50 entries in storage.session; revisions are not user identifiers or additional report fields. Improved sanitization does not guarantee removing all sensitive data from free text. The candidate also preserves user pause when removing a YouTube warning and suspends its monitors when the page is left. These changes do not add automatic data collection, a reporting destination, confirmed payments or permissions.
