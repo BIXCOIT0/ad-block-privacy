@@ -2,6 +2,7 @@
 
 Este repositório contém políticas e suporte. Não incluir runtime privado da extensão, logs pessoais ou credenciais.
 
+- Guias públicos: SUPPORT.md e SUPPORT.en.md devem descrever os mesmos fluxos; não copiar código privado, pedir logs públicos ou recomendar limpar todos os dados como rotina.
 - Preservar URLs de PRIVACY.md e PRIVACY.en.md; index.html é gerado por scripts/render_privacy.py a partir das fontes PT/EN.
 - Distinguir versão publicada de candidata. Conferir comportamento antes de mudar a política; não substituir apenas o número da versão.
 - Políticas PT/EN devem permanecer equivalentes; não inventar traduções jurídicas para outros idiomas.
