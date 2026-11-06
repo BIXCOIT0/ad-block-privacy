@@ -55,3 +55,5 @@ Privately report suspected vulnerabilities to **marcoantonioarantes02@gmail.com*
 ## Optional support
 
 The [Pix support page](https://bixcoit0.github.io/apoio-AD-BLOCK/) is voluntary. Payment is not required to use the extension or submit reports. Check the recipient in your banking app before confirming any transfer.
+
+In the technical revision of candidate 0.9.16, automatic attachments contain only permitted technical codes and fields, including page events since loading with updated scripts. Original console text and objects are not stored; unknown errors appear as a generic category. This does not recover earlier console history or every internal browser message. The text you type and the optional hostname still require your review.

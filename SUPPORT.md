@@ -55,3 +55,5 @@ Envie suspeitas de vulnerabilidade em privado para **marcoantonioarantes02@gmail
 ## Apoio opcional
 
 A [página de apoio Pix](https://bixcoit0.github.io/apoio-AD-BLOCK/) é voluntária. A extensão não exige pagamento para funcionar ou receber relatos. Confira o beneficiário no aplicativo do banco antes de confirmar qualquer transferência.
+
+Na revisão técnica da candidata 0.9.16, o anexo automático usa somente códigos e campos técnicos permitidos, incluindo ocorrências da página desde seu carregamento com os scripts atualizados. O texto original do console e seus objetos não são guardados; erros desconhecidos aparecem como categoria genérica. Não recupera o console anterior nem todas as mensagens internas do navegador. O texto que você digita e o domínio opcional continuam para sua revisão.
