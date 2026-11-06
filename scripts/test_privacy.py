@@ -1,6 +1,7 @@
 from html.parser import HTMLParser
 from pathlib import Path
-import tempfile, unittest
+import re, tempfile, unittest
+from urllib.parse import unquote, urlsplit
 from render_privacy import ROOT, render, inline
 
 class Document(HTMLParser):
@@ -13,6 +14,13 @@ class Document(HTMLParser):
         if tag=='section':self.sections[attrs['id']]=attrs.get('lang')
 
 class PrivacyTests(unittest.TestCase):
+    def test_public_help_navigation(self):
+        for name in ['README.md', 'SUPPORT.md', 'SUPPORT.en.md']:
+            for target in re.findall(r'\]\(([^)]+)\)', (ROOT/name).read_text()):
+                url=urlsplit(target)
+                if url.scheme or url.netloc:continue
+                path=(ROOT/unquote(url.path)).resolve()
+                self.assertTrue(path.is_relative_to(ROOT.resolve()) and path.is_file(), (name,target))
     def test_generated_and_structure(self):
         text=(ROOT/'index.html').read_text();self.assertEqual(text,render())
         doc=Document();doc.feed(text);self.assertNotIn('pre',doc.tags);self.assertNotIn('script',doc.tags)
