@@ -31,9 +31,11 @@ Relatos pelo formulário usam Web3Forms somente por ação explícita. Diagnóst
 
 ## Manutenção
 
+[Guia operacional de manutenção](MANUTENCAO.md).
+
 Este repositório público mantém políticas e suporte. O código da extensão é privado e não deve ser copiado para cá. Preservar os caminhos PRIVACY.md e PRIVACY.en.md: são usados pela extensão e pela loja. Alterações legais devem conferir comportamento da versão aplicável; não basta substituir números.
 
-A organização em andamento preserva esses links e prepara uma fonte única de políticas com HTML semântico e testes. A integração deste repositório não confirma publicação de uma nova versão da extensão.
+As fontes PT/EN, o HTML gerado, os guias de suporte e os testes estão consolidados; a manutenção preserva os links existentes. A integração deste repositório não confirma publicação de uma nova versão da extensão.
 
 ## Gerar e validar a página
 
