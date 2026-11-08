@@ -8,7 +8,7 @@
 2. Abra o menu de extensões do Edge e selecione PapaAnúncio. O nome em inglês é AdChomper.
 3. Confira a versão em `edge://extensions`. Esse endereço deve ser digitado na barra do navegador. Se houver uma atualização disponível, use os controles do Edge.
 
-A versão publicada informada pelo responsável é 0.9.14. A candidata 0.9.16 está em testes; sua existência no projeto não significa que esteja na loja. Este guia descreve os controles comuns da linha publicada, sem exigir a candidata ou instalação de código de terceiros.
+A versão publicada informada pelo responsável e base funcional atual é a 0.9.17, sucedendo as versões anteriores 0.9.14 e 0.9.16. Este guia descreve os controles da versão 0.9.17, sem exigir instalação de código de terceiros.
 
 ## Pausar e retomar
 
@@ -41,7 +41,7 @@ O número no popup representa ações de regras observadas pelo navegador. Uma r
 1. Abra **Reportar Problema** no popup da aba afetada.
 2. Confira o campo do site. Ele envia somente o domínio; você pode corrigir ou apagar esse campo. Não coloque URLs privadas no texto do relato.
 3. Descreva passos, resultado esperado e observado, versão e navegador. Um relato pode ser enviado sem anexar diagnóstico.
-4. Se optar por anexar diagnóstico, abra **Revisar dados de diagnóstico** e examine o conteúdo. Pode incluir informações técnicas e até 50 registros recentes da extensão. Os filtros não garantem remover todo dado sensível. Se houver algo que não deseja compartilhar, desmarque o anexo e descreva o problema sem esses dados.
+4. Se optar por anexar diagnóstico, abra **Revisar dados de diagnóstico** e examine o conteúdo. O anexo opcional usa apenas códigos e campos técnicos permitidos: até 50 registros recentes em formato técnico restrito e o snapshot técnico opcional da aba de origem desde o carregamento com os scripts atuais, sem guardar texto original do console nem objetos; erros desconhecidos aparecem como categoria genérica e não há recuperação do console anterior nem de todas as mensagens internas do navegador. Se houver algo que não deseja compartilhar na prévia, desmarque o anexo e descreva o problema sem esses dados. O texto livre digitado e o domínio opcional continuam exigindo sua revisão.
 5. Ao clicar em **Enviar Relato**, o conteúdo selecionado é enviado pelo Web3Forms para entrega ao desenvolvedor. Se ocorrer falha de envio, confira a conexão e tente novamente; não há necessidade de publicar os logs.
 
 Os registros são temporários e capturados durante a sessão; não recuperam retroativamente todo o console do site. Consulte a [política de privacidade](PRIVACY.md) antes de enviar.
@@ -55,5 +55,3 @@ Envie suspeitas de vulnerabilidade em privado para **marcoantonioarantes02@gmail
 ## Apoio opcional
 
 A [página de apoio Pix](https://bixcoit0.github.io/apoio-AD-BLOCK/) é voluntária. A extensão não exige pagamento para funcionar ou receber relatos. Confira o beneficiário no aplicativo do banco antes de confirmar qualquer transferência.
-
-Na revisão técnica da candidata 0.9.16, o anexo automático usa somente códigos e campos técnicos permitidos, incluindo ocorrências da página desde seu carregamento com os scripts atualizados. O texto original do console e seus objetos não são guardados; erros desconhecidos aparecem como categoria genérica. Não recupera o console anterior nem todas as mensagens internas do navegador. O texto que você digita e o domínio opcional continuam para sua revisão.

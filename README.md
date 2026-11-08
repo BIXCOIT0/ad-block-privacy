@@ -21,9 +21,9 @@ Não há garantia de bloquear todos os anúncios. O comportamento de YouTube e T
 - [Privacy policy in English](PRIVACY.en.md)
 - [Página de leitura](index.html)
 
-As políticas integradas na main descrevem a linha 0.9.14 e identificam separadamente mudanças da candidata 0.9.16. Referências históricas não indicam a versão atual da loja. Consulte a versão instalada em edge://extensions e a ficha oficial. A versão publicada informada pelo responsável é 0.9.14; alterações de candidatas não significam publicação.
+As políticas integradas na main descrevem a versão 0.9.17, publicada na loja e base funcional atual, sucedendo as versões 0.9.14 e 0.9.16. Consulte a versão instalada em edge://extensions e a ficha oficial. A versão publicada informada pelo responsável é 0.9.17.
 
-Relatos pelo formulário usam Web3Forms somente por ação explícita. Diagnósticos podem conter dados sensíveis apesar dos filtros. Leia a política e revise o conteúdo.
+Relatos pelo formulário usam Web3Forms somente por ação explícita. Diagnósticos usam apenas códigos técnicos fixos; o texto livre digitado e o domínio informado exigem sua revisão. Leia a política e revise o conteúdo.
 
 ## Apoio voluntário
 
@@ -45,4 +45,4 @@ O workflow de validação não publica Pages. Testes de Chromium usam páginas l
 
 ## Estado da publicação deste repositório
 
-Políticas PT/EN e página HTML gerada foram integradas pelo PR #1, com CI aprovada. GitHub Pages não está habilitado neste repositório no inventário de 05/11/2026; os links públicos PRIVACY.md e PRIVACY.en.md no GitHub continuam sendo as entradas de privacidade. O HTML pode ser servido por hospedagem estática quando essa configuração for autorizada/disponível. Isso não impede ler as políticas no GitHub nem publica a candidata 0.9.16 da extensão.
+Políticas PT/EN e página HTML gerada foram integradas pelo PR #1, com CI aprovada. GitHub Pages não está habilitado neste repositório no inventário de 05/11/2026; os links públicos PRIVACY.md e PRIVACY.en.md no GitHub continuam sendo as entradas de privacidade. O HTML pode ser servido por hospedagem estática quando essa configuração for autorizada/disponível. Isso não impede ler as políticas no GitHub nem publica uma nova versão da extensão.
