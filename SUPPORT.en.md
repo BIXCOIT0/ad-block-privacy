@@ -8,7 +8,7 @@
 2. Open the Edge extensions menu and select AdChomper. Its Portuguese name is PapaAnúncio.
 3. Check the version at `edge://extensions`. Type this address into the browser address bar. If an update is available, use the Edge controls.
 
-The owner reports 0.9.14 as the published version. Candidate 0.9.16 is being tested; its presence in the project does not mean it is in the store. This guide covers the controls shared with the published version and does not require the candidate or third-party code.
+The published version reported by the owner and current functional baseline is 0.9.17, succeeding versions 0.9.14 and 0.9.16. This guide describes the controls of version 0.9.17 and does not require third-party code.
 
 ## Pause and resume
 
@@ -41,7 +41,7 @@ The popup number represents rule actions observed by the browser. One rule can a
 1. Open **Report a problem** from the affected tab's popup.
 2. Check the site field. It sends only the domain; you can correct or clear it. Do not put private URLs in the report text.
 3. Describe the steps, expected and observed behavior, version and browser. You can send a report without diagnostics.
-4. If you choose to attach diagnostics, open **Review diagnostic data** and inspect the contents. They may include technical information and up to 50 recent extension records. Filters cannot guarantee removal of every sensitive detail. If there is anything you do not want to share, uncheck the attachment and describe the issue without those data.
+4. If you choose to attach diagnostics, open **Review diagnostic data** and inspect the contents. The optional attachment uses only permitted technical codes and fields: up to 50 recent records in a restricted technical format and the optional technical snapshot of the source tab since loading with the current scripts, without storing original console text or objects; unknown errors appear as a generic category, and earlier console history or every internal browser message is not recovered. If there is anything in the preview you do not want to share, uncheck the attachment and describe the issue without those data. The free text you type and the optional hostname still require your review.
 5. Clicking **Send report** sends the selected content through Web3Forms for delivery to the developer. If sending fails, check your connection and try again; you do not need to publish the logs.
 
 Records are temporary and captured during the session; they do not retroactively recover the site's entire console. Read the [privacy policy](PRIVACY.en.md) before sending.
@@ -55,5 +55,3 @@ Privately report suspected vulnerabilities to **marcoantonioarantes02@gmail.com*
 ## Optional support
 
 The [Pix support page](https://bixcoit0.github.io/apoio-AD-BLOCK/) is voluntary. Payment is not required to use the extension or submit reports. Check the recipient in your banking app before confirming any transfer.
-
-In the technical revision of candidate 0.9.16, automatic attachments contain only permitted technical codes and fields, including page events since loading with updated scripts. Original console text and objects are not stored; unknown errors appear as a generic category. This does not recover earlier console history or every internal browser message. The text you type and the optional hostname still require your review.

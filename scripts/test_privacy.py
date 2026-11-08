@@ -32,7 +32,7 @@ class PrivacyTests(unittest.TestCase):
     def test_version_scope_and_topics(self):
         pt=(ROOT/'PRIVACY.md').read_text();en=(ROOT/'PRIVACY.en.md').read_text()
         self.assertEqual(pt.count('\n## '),en.count('\n## '))
-        for token in ['0.9.14','0.9.16','pageObservedCounts','pendingMatchBatch','SHA-256','Web3Forms','128','50']:
+        for token in ['0.9.14','0.9.16','0.9.17','pageObservedCounts','pendingMatchBatch','SHA-256','Web3Forms','128','50']:
             self.assertIn(token,pt);self.assertIn(token,en)
     def test_escape_and_safe_links(self):
         self.assertEqual(inline('<script>alert(1)</script>'),'&lt;script&gt;alert(1)&lt;/script&gt;')
